@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string-array name="listOptions">
+     <item>Ringtone1</item>
+     <item>Ringtone2</item>
+     <item>Ringtone3</item>
+     </string-array>
+ 
+   <string-array name="listValues">
+     <item>Ringtone 1</item>
+     <item>Ringtone 2</item>
+     <item>Ringtone 3</item>
+   </string-array>
+</resources>
