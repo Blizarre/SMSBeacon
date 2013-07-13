@@ -34,7 +34,7 @@
 
         <requestFocus />
     </EditText>
-
+    
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -48,11 +48,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="phone" />
-
+    
+    <Button
+        android:id="@+id/prefs_access_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings"
+        />
+    
+    <Button
+        android:id="@+id/demo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/demo"
+        />
+    
     <ToggleButton
         android:id="@+id/toggleButton1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/toggle_on_off" />
 
+    <TextView
+  		android:id="@+id/delete_me"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content" />
 </LinearLayout>

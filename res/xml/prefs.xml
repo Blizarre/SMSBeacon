@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+   		android:summary="passwords information"
+   		android:title="Pwds information" >
+    	<EditTextPreference
+	     	android:key="Lost pwd"
+	     	android:summary="Please enter your sms lost pwd"
+		    android:title="LostPwd" />
+		<EditTextPreference
+		    android:key="Robbed pwd"
+		    android:summary="Please enter your sms robbed pwd"
+		    android:title="RobbedPwd" />
+		<EditTextPreference
+		    android:key="Settings pwd"
+		    android:summary="Please enter your settings pwd"
+		    android:title="SettingsPwd" />
+	</PreferenceCategory>
+	<PreferenceCategory
+   		android:summary="settings"
+   		android:title="Settings" >
+	    <ListPreference
+		     android:entries="@array/listOptions"
+		     android:entryValues="@array/listValues"
+		     android:key="listpref"
+		     android:summary="List preference example"
+		     android:title="List preference" />
+	    <CheckBoxPreference
+		     android:key="checkBox"
+		     android:summary="On/Off"
+		     android:title="Flash Light" />
+	</PreferenceCategory>	
+</PreferenceScreen>
