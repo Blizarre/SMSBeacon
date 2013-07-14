@@ -19,6 +19,8 @@ public class RingActivity extends Activity {
 	private boolean m_hasFlash = false;
 	private Parameters m_param = null;
 	private Ringtone m_rgtone = null;
+	private int m_initVolume = 0;
+	AudioManager m_audioManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +34,22 @@ public class RingActivity extends Activity {
 			public void onClick(View v) {
 				turnOffFlash();
 				turnOffRingTone();
+				m_audioManager.setStreamVolume(
+						   AudioManager.STREAM_RING,
+						   m_initVolume,
+						   AudioManager.FLAG_PLAY_SOUND
+						);
 				RingActivity.this.finish();
+				
 			}
 		});
 		m_hasFlash = getApplicationContext().getPackageManager()
 		        .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-		AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-		audioManager.setStreamVolume(
+		m_audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+		m_initVolume = m_audioManager.getStreamVolume(AudioManager.STREAM_RING);
+		m_audioManager.setStreamVolume(
 				   AudioManager.STREAM_RING,
-				   audioManager.getStreamMaxVolume(AudioManager.STREAM_RING),
+				   m_audioManager.getStreamMaxVolume(AudioManager.STREAM_RING),
 				   AudioManager.FLAG_PLAY_SOUND
 				);
 		turnOnFlash();
