@@ -24,8 +24,6 @@ public class Config extends Activity {
 		public String pwd;
 		public String phoneNumber;
 	}
-	private final String PREF_PWD = "password";
-	private final String PREF_PHONE = "phone_number";
 	
 	public static final String PREFS_NAME = "MyPrefsFile";
 	

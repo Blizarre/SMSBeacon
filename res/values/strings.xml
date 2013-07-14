@@ -9,4 +9,7 @@
     <string name="lbl_title_trigger">Trigger alarm upon :</string>
     <string name="settings">Settings</string>
     <string name="demo">Demo</string>
+    <string name="stop">Stop me</string>
+    <string name="permlab_flashlight">permlab_flashlight</string>
+    <string name="permdesc_flashlight">permdesc_flashlight</string>
 </resources>
