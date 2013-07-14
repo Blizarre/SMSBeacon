@@ -32,7 +32,7 @@ public class SMSReceiver extends BroadcastReceiver {
 					if(strMsgBody.equals(getTriggerCodeSMS())) {
 						Log.i(TAG, "SMS trigger detected");
 						abortBroadcast(); // Do not dispatch the SMS to anybody else
-						Intent newintent = new Intent(context, Ringer.class);
+						Intent newintent = new Intent(context, RingActivity.class);
 						newintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 						context.startActivity(newintent);
 					}
