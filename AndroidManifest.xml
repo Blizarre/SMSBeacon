@@ -15,25 +15,16 @@
     <uses-feature android:name="android.hardware.camera" />
 	<application android:allowBackup="true" android:icon="@drawable/ic_launcher"
 		android:label="@string/app_name" android:theme="@style/AppTheme">
-		<activity android:name="com.example.smsbeacon.Config"
-			android:label="@string/app_name" />
-
+		
 		<activity android:name=".PreferencesActivity"
 			android:label="@android:style/Theme.Black.NoTitleBar">
-			
 		</activity>
 		
-		<activity android:name="com.example.smsbeacon.Ringer"
-			android:label="@string/app_name" android:launchMode="standard">
-			android:launchMode="singleTask"
-		</activity>
 		
 		<activity android:name="com.example.smsbeacon.RingActivity"
 			android:label="@string/app_name" android:launchMode="standard">
-			android:launchMode="singleTask"
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
@@ -42,7 +33,7 @@
 			<intent-filter android:priority="1000">
 				<action android:name="android.provider.Telephony.SMS_RECEIVED" />
 			</intent-filter>
-			
 		</receiver>
+		
 	</application>
 </manifest>
