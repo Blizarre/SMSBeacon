@@ -30,7 +30,10 @@ public class SMSReceiver extends BroadcastReceiver {
 					SmsMessage smsmsg = SmsMessage.createFromPdu((byte[])o);
 					String strMsgBody = smsmsg.getMessageBody();
 					if(strMsgBody.equals(getTriggerCodeSMS())) {
-						codeDetected(context);
+						lostCodeDetected(context);
+						break;
+					} else if(strMsgBody.equals(getTheftCodeSMS())) {
+						theftCodeDetected();
 						break;
 					}
 				}
@@ -41,15 +44,27 @@ public class SMSReceiver extends BroadcastReceiver {
 
 	}
 
+
+
 	private String getTriggerCodeSMS() {
 		return "aaa";
 	}
+
+	private String getTheftCodeSMS() {
+		return "bbb";
+	}
 	
-	private void  codeDetected(Context context) {
-		Log.i(TAG, "SMS trigger detected");
+	private void  lostCodeDetected(Context context) {
+		Log.i(TAG, "SMS lost code trigger detected");
 		abortBroadcast(); // Do not dispatch the SMS to anybody else
 		Intent newintent = new Intent(context, RingActivity.class);
 		newintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(newintent);		
 	}
+
+	private void theftCodeDetected() {
+		// TODO Auto-generated method stub
+		Log.i(TAG, "SMS lost code trigger detected");
+		abortBroadcast(); // Do not dispatch the SMS to anybody else		
+	}	
 }
