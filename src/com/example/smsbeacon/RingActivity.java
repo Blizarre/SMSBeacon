@@ -40,7 +40,6 @@ public class RingActivity extends Activity {
 						   AudioManager.FLAG_PLAY_SOUND
 						);
 				RingActivity.this.finish();
-				
 			}
 		});
 		m_hasFlash = getApplicationContext().getPackageManager()
