@@ -10,6 +10,20 @@
     <string name="settings">Settings</string>
     <string name="demo">Demo</string>
     <string name="stop">Stop me</string>
+    <string name="lost_pwd_title">Lost phone pwd </string>
+    <string name="lost_pwd_summary">Please enter lost phone pwd</string>
+    <string name="robbed_pwd_title">Robbed phone pwd </string>
+    <string name="robbed_pwd_summray">Please enter robbed phone pwd</string>
+    <string name="settings_pwd_title">Settings pwd </string>
+    <string name="settings_pwd_summary">Please enter settings acces pwd</string>
+    <string name="ringtone_list_title">Ringtone </string>
+    <string name="ringtone_list_summary">select the ringtone you want to use</string>
+    <string name="flash_light_chk_box_title">Use flashLight</string>
+    <string name="flash_light_summary">on/off</string>
+    
+    
+    
+    
     <string name="permlab_flashlight">permlab_flashlight</string>
     <string name="permdesc_flashlight">permdesc_flashlight</string>
 </resources>

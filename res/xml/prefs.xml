@@ -5,16 +5,16 @@
    		android:title="Pwds information" >
     	<EditTextPreference
 	     	android:key="Lost pwd"
-	     	android:summary="Please enter your sms lost pwd"
-		    android:title="LostPwd" />
+	     	android:summary="@string/lost_pwd_summary"
+		    android:title="@string/lost_pwd_title" />
 		<EditTextPreference
 		    android:key="Robbed pwd"
-		    android:summary="Please enter your sms robbed pwd"
-		    android:title="RobbedPwd" />
+		    android:summary="@string/robbed_pwd_title"
+		    android:title="@string/robbed_pwd_summray" />
 		<EditTextPreference
 		    android:key="Settings pwd"
-		    android:summary="Please enter your settings pwd"
-		    android:title="SettingsPwd" />
+		    android:summary="@string/settings_pwd_summary"
+		    android:title="@string/settings_pwd_title" />
 	</PreferenceCategory>
 	<PreferenceCategory
    		android:summary="settings"
@@ -23,11 +23,11 @@
 		     android:entries="@array/listOptions"
 		     android:entryValues="@array/listValues"
 		     android:key="listpref"
-		     android:summary="List preference example"
-		     android:title="List preference" />
+		     android:summary="@string/ringtone_list_summary"
+		     android:title="@string/ringtone_list_title" />
 	    <CheckBoxPreference
 		     android:key="checkBox"
-		     android:summary="On/Off"
-		     android:title="Flash Light" />
+		     android:summary="@string/flash_light_summary"
+		     android:title="@string/flash_light_chk_box_title" />
 	</PreferenceCategory>	
 </PreferenceScreen>

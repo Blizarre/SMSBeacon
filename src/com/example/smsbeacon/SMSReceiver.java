@@ -3,7 +3,9 @@ package com.example.smsbeacon;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
@@ -29,7 +31,7 @@ public class SMSReceiver extends BroadcastReceiver {
 				for ( Object o : smsextras) {
 					SmsMessage smsmsg = SmsMessage.createFromPdu((byte[])o);
 					String strMsgBody = smsmsg.getMessageBody();
-					if(strMsgBody.equals(getTriggerCodeSMS())) {
+					if(strMsgBody.equals(getTriggerCodeSMS(context))) {
 						Log.i(TAG, "SMS trigger detected");
 						abortBroadcast(); // Do not dispatch the SMS to anybody else
 						Intent newintent = new Intent(context, RingActivity.class);
@@ -44,7 +46,9 @@ public class SMSReceiver extends BroadcastReceiver {
 
 	}
 
-	private String getTriggerCodeSMS() {
-		return "aaa";
+	private String getTriggerCodeSMS(Context context) {
+		SharedPreferences prefs = PreferenceManager
+			    .getDefaultSharedPreferences(context);
+		return  prefs.getString("Lost pwd", "?!dflt_pwd!?");
 	}
 }
