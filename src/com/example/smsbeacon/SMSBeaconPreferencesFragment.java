@@ -3,7 +3,7 @@ package com.example.smsbeacon;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
 
-public class PreferencesActivity extends PreferenceActivity {
+public class SMSBeaconPreferencesFragment extends PreferenceFragment {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
