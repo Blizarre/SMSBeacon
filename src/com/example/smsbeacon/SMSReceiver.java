@@ -32,11 +32,11 @@ public class SMSReceiver extends BroadcastReceiver {
 					SmsMessage smsmsg = SmsMessage.createFromPdu((byte[])o);
 					String strMsgBody = smsmsg.getMessageBody();
 					if(strMsgBody.equals(getTriggerCodeSMS(context))) {
-						Log.i(TAG, "SMS trigger detected");
-						abortBroadcast(); // Do not dispatch the SMS to anybody else
-						Intent newintent = new Intent(context, RingActivity.class);
-						newintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-						context.startActivity(newintent);
+						lostCodeDetected(context);
+						break;
+					} else if(strMsgBody.equals(getTheftCodeSMS(context))) {
+						theftCodeDetected();
+						break;
 					}
 				}
 
@@ -46,9 +46,27 @@ public class SMSReceiver extends BroadcastReceiver {
 
 	}
 
-	private String getTriggerCodeSMS(Context context) {
-		SharedPreferences prefs = PreferenceManager
-			    .getDefaultSharedPreferences(context);
-		return  prefs.getString("Lost pwd", "?!dflt_pwd!?");
+	private String getTriggerCodeSMS(Context c) {
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
+		return preferences.getString(c.getString(R.string.pref_key_lost_passwd), "");
 	}
+
+	private String getTheftCodeSMS(Context c) {
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
+		return preferences.getString(c.getString(R.string.pref_key_theft_passwd), "");
+	}
+	
+	private void  lostCodeDetected(Context context) {
+		Log.i(TAG, "SMS lost code trigger detected");
+		abortBroadcast(); // Do not dispatch the SMS to anybody else
+		Intent newintent = new Intent(context, RingActivity.class);
+		newintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		context.startActivity(newintent);		
+	}
+
+	private void theftCodeDetected() {
+		// TODO Auto-generated method stub
+		Log.i(TAG, "SMS lost code trigger detected");
+		abortBroadcast(); // Do not dispatch the SMS to anybody else		
+	}	
 }

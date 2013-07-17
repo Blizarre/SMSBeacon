@@ -4,13 +4,13 @@
    		android:summary="passwords information"
    		android:title="Pwds information" >
     	<EditTextPreference
-	     	android:key="Lost pwd"
-	     	android:summary="@string/lost_pwd_summary"
-		    android:title="@string/lost_pwd_title" />
+	     	android:key="@string/pref_key_lost_passwd"
+	     	android:summary="@string/pref_sum_lost_passwd"
+		    android:title="@string/pref_title_lost_passwd" />
 		<EditTextPreference
-		    android:key="Robbed pwd"
-		    android:summary="@string/robbed_pwd_title"
-		    android:title="@string/robbed_pwd_summray" />
+		    android:key="@string/pref_key_theft_passwd"
+		    android:summary="@string/pref_sum_theft_passwd"
+		    android:title="@string/pref_title_theft_passwd" />
 		<EditTextPreference
 		    android:key="Settings pwd"
 		    android:summary="@string/settings_pwd_summary"

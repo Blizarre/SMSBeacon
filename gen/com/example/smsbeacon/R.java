@@ -63,6 +63,12 @@ public final class R {
         public static final int lost_pwd_title=0x7f07000a;
         public static final int permdesc_flashlight=0x7f070015;
         public static final int permlab_flashlight=0x7f070014;
+        public static final int pref_key_lost_passwd=0x7f070016;
+        public static final int pref_key_theft_passwd=0x7f070019;
+        public static final int pref_sum_lost_passwd=0x7f070017;
+        public static final int pref_sum_theft_passwd=0x7f07001a;
+        public static final int pref_title_lost_passwd=0x7f070018;
+        public static final int pref_title_theft_passwd=0x7f07001b;
         public static final int ringtone_list_summary=0x7f070011;
         public static final int ringtone_list_title=0x7f070010;
         public static final int robbed_pwd_summray=0x7f07000d;
