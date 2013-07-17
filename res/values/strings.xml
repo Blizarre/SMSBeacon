@@ -12,4 +12,15 @@
     <string name="stop">Stop me</string>
     <string name="permlab_flashlight">permlab_flashlight</string>
     <string name="permdesc_flashlight">permdesc_flashlight</string>
+    
+    <string name="pref_key_lost_passwd">pref_lost_passwd</string>
+    <string name="pref_sum_lost_passwd">if this text is found in a SMS, it wil trigger the loud alarm</string>
+    <string name="pref_title_lost_passwd">Lost password :</string>
+    
+    <string name="pref_key_theft_passwd">pref_theft_passwd</string>
+    <string name="pref_sum_theft_passwd">if this text is found in a SMS, it wil trigger the silent alarm</string>
+    <string name="pref_title_theft_passwd">theft password :</string>
+    
+    
+    
 </resources>
