@@ -5,6 +5,8 @@
 
 	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17" />
 	<uses-permission android:name="android.permission.RECEIVE_SMS" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	
 	<!-- Allows access to the flashlight -->
  	<!--  <permission android:name="android.permission.FLASHLIGHT"
              android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
@@ -33,6 +35,7 @@
 		<receiver android:name="com.example.smsbeacon.SMSReceiver">
 			<intent-filter android:priority="1000">
 				<action android:name="android.provider.Telephony.SMS_RECEIVED" />
+				<action android:name="android.intent.action.PHONE_STATE" />
 			</intent-filter>
 		</receiver>
 		

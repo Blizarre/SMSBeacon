@@ -12,10 +12,15 @@
 		    android:summary="@string/pref_sum_theft_passwd"
 		    android:title="@string/pref_title_theft_passwd" />
 		<EditTextPreference
+		    android:key="@string/pref_key_specific_caller"
+		    android:summary="@string/pref_sum_specific_caller"
+		    android:title="@string/pref_title_specific_caller" />		
+		<EditTextPreference
 		    android:key="@string/pref_key_settings_pwd"
 		    android:summary="@string/pref_sum_settings_pwd"
 		    android:title="@string/pref_title_settings_pwd" />
 	</PreferenceCategory>
+	
 	<PreferenceCategory
    		android:summary="settings"
    		android:title="Settings" >
