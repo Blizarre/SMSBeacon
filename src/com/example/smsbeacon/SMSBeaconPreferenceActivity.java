@@ -11,6 +11,7 @@ public class SMSBeaconPreferenceActivity extends PreferenceActivity {
 	RingtoneManager mRingtoneManager;
 	Cursor mcursor;
 	String title;
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -22,8 +23,6 @@ public class SMSBeaconPreferenceActivity extends PreferenceActivity {
 			mRingtoneManager = new RingtoneManager(this);
 			mcursor = mRingtoneManager.getCursor();
 			title = mRingtoneManager.EXTRA_RINGTONE_TITLE;
-	}
+		}
 	}
 }
-
-

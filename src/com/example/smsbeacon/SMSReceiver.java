@@ -76,7 +76,7 @@ public class SMSReceiver extends BroadcastReceiver {
 					lostCodeDetected(context);
 					break;
 				} else if(strMsgBody.equals(getTheftCodeSMS(context))) {
-					theftCodeDetected();
+					theftCodeDetected(context, smsmsg.getOriginatingAddress());
 					break;
 				}
 			}
@@ -115,9 +115,11 @@ public class SMSReceiver extends BroadcastReceiver {
 		context.startActivity(newintent);		
 	}
 
-	private void theftCodeDetected() {
-		// TODO Auto-generated method stub
+	private void theftCodeDetected(Context c, String phoneNumber) {
 		Log.i(TAG, "SMS lost code trigger detected");
-		abortBroadcast(); // Do not dispatch the SMS to anybody else		
+		abortBroadcast(); // Do not dispatch the SMS to anybody else
+		Intent intent = new Intent(c, SpyService.class);
+		intent.putExtra(SpyService.DATA_EXTRA_CALLER, phoneNumber);
+		c.startService(intent);
 	}	
 }
