@@ -20,30 +20,20 @@
 		    android:summary="@string/pref_sum_settings_pwd"
 		    android:title="@string/pref_title_settings_pwd" />
 	</PreferenceCategory>
-	
+
 	<PreferenceCategory
    		android:summary="settings"
    		android:title="Settings" >
-	    <!--<ListPreference
+	    <ListPreference
 		     android:entries="@array/listOptions"
 		     android:entryValues="@array/listValues"
 		     android:key="pref_key_ringtone_list"
 		     android:summary="@string/pref_sum_ringtone_list"
-		     android:title="@string/pref_title_ringtone_list" />-->
-	    
-	    <RingtonePreference 
-	        android:name="Ringtone Preference"
-            android:ringtoneType="notification"
-            android:showSilent="false"
-            android:summary="@string/pref_sum_notification_sound"
-            android:title="@string/pref_title_notification_sound"
-            android:key="sound" />
-	    
+		     android:title="@string/pref_title_ringtone_list" />
+
 	    <CheckBoxPreference
 		     android:key="@string/pref_key_flash_light_chk_box"
 		     android:summary="@string/pref_sum_flash_light_chk_box"
 		     android:title="@string/pref_title_flash_light_chk_box" />
 	</PreferenceCategory>	
-	
-	
 </PreferenceScreen>
