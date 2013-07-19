@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.example.smsbeacon" android:versionCode="1"
-	android:versionName="1.0">
-	
-	<uses-sdk android:minSdkVersion="11" android:targetSdkVersion="17" />
-	
-	<uses-permission android:name="android.permission.RECEIVE_SMS" />
-	<uses-permission android:name="android.permission.SEND_SMS" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-	<uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-feature android:name="android.hardware.camera" />
-	<application android:allowBackup="true" android:icon="@drawable/ic_launcher"
-		android:label="@string/app_name" android:theme="@style/AppTheme">
-		
-		<activity android:name=".SMSBeaconPreferenceActivity"
-			android:label="@android:style/Theme.Black.NoTitleBar">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
+    package="com.example.smsbeacon"
+    android:versionCode="1"
+    android:versionName="1.0" >
 
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-		
-		
-		<activity android:name=".RingActivity"
-			android:label="@string/app_name" android:launchMode="standard">
-		</activity>
-		
-		<receiver android:name=".SMSReceiver">
-			<intent-filter android:priority="1000">
-				<action android:name="android.provider.Telephony.SMS_RECEIVED" />
-				<action android:name="android.intent.action.PHONE_STATE" />
-			</intent-filter>
-		</receiver>
-		<service android:name=".SpyService">
-			<intent-filter>
-				<action android:name="com.example.smsbeacon.spy"/>
-			</intent-filter>
-		</service>
-		
-	</application>
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".SMSBeaconPreferenceActivity"
+            android:label="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RingActivity"
+            android:label="@string/app_name"
+            android:launchMode="standard" >
+        </activity>
+
+        <receiver android:name=".SMSReceiver" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".SpyService" />
+    </application>
+
 </manifest>
