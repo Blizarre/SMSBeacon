@@ -2,6 +2,7 @@ package com.example.smsbeacon;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
@@ -10,6 +11,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -51,7 +53,10 @@ public class RingActivity extends Activity {
 				   m_audioManager.getStreamMaxVolume(AudioManager.STREAM_RING),
 				   AudioManager.FLAG_PLAY_SOUND
 				);
-		turnOnFlash();
+		if (shallUseFlash())
+		{
+			turnOnFlash();
+		}
 		turnOnRingTone();
 	}
 	
@@ -93,7 +98,12 @@ public class RingActivity extends Activity {
         m_cam.stopPreview();
         m_cam.release();
 	}
-
-
-	    
+	
+	protected boolean shallUseFlash()
+	{
+		Context c = getApplicationContext();
+		SharedPreferences preferences = PreferenceManager.
+									getDefaultSharedPreferences(c);
+		return preferences.getBoolean(c.getString(R.string.pref_key_flash_light_chk_box), false);
+	}
 }

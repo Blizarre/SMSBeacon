@@ -14,7 +14,6 @@ public class SMSBeaconPreferenceActivity extends PreferenceActivity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		// instanciate the preference fragment and add it as the main content
 		if (savedInstanceState == null) {
 			Fragment newFragment = new SMSBeaconPreferencesFragment();
