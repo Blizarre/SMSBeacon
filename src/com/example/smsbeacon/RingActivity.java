@@ -1,13 +1,10 @@
 package com.example.smsbeacon;
 
-import java.util.ArrayList;
-
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -16,10 +13,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-import android.app.Activity;
-import android.content.Context;
-import android.content.pm.PackageManager;
 
 public class RingActivity extends Activity {
 	private Camera m_cam = null;
