@@ -1,6 +1,7 @@
 package com.example.smsbeacon;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.util.Date;
 
 import android.app.Service;
 import android.content.Context;
@@ -8,11 +9,10 @@ import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.IBinder;
 import android.telephony.SmsManager;
 import android.util.Log;
-import android.widget.Toast;
+import android.util.TimeFormatException;
 
 public class SpyService extends Service {
 
@@ -44,13 +44,15 @@ public class SpyService extends Service {
 
 
 	protected void sendCoordinates() {
-		double lon, lat, alt;
+		double lon, lat, alt, prec;
+		long temp;
+		String lastFix;
 		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		Location location = getFinePosition(locationManager);
 		
 		StringBuilder positionStr = new StringBuilder();
-		positionStr.append("lost phone position : ");
+		positionStr.append("lost phone position :\n");
 		
 		// Not found anything ? not a problem, GPS may not be started. Try something less precise
 		if (location == null)
@@ -63,7 +65,12 @@ public class SpyService extends Service {
 			lat = location.getLatitude();
 			lon = location.getLongitude();
 			alt = location.getAltitude();
-			positionStr.append("longitude: " + lon + " E\nlatitude: " + lat + " S\naltitude: " + alt );
+			prec = location.getAccuracy();
+			temp = location.getTime();
+			
+			positionStr.append(String.format("%.5f E, %.5f N (alt: %.1fm)\n", lon, lat, alt));
+			lastFix = DateFormat.getDateTimeInstance().format(new Date(temp));
+			positionStr.append(String.format("accuracy : %.1f m, time : %s" , prec, lastFix));
 		}
 		Log.i(TAG, "send sms to " + mOriginator + " with content '" + positionStr + "'");
         SmsManager sms = SmsManager.getDefault();

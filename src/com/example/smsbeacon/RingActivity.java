@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.media.AudioManager;
@@ -14,11 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.Toast;
 
 public class RingActivity extends Activity implements OnSeekBarChangeListener{
 	private Camera m_cam = null;
@@ -32,7 +28,6 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ring);
-		Button Bn;
 		SeekBar mBar;
 		mBar = (SeekBar) findViewById(R.id.seekbar);
 		mBar.setOnSeekBarChangeListener(this);
