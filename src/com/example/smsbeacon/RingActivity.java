@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
 import android.media.AudioManager;
@@ -15,8 +16,11 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.Toast;
 
-public class RingActivity extends Activity {
+public class RingActivity extends Activity implements OnSeekBarChangeListener{
 	private Camera m_cam = null;
 	private boolean m_hasFlash = false;
 	private Parameters m_param = null;
@@ -29,21 +33,9 @@ public class RingActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ring);
 		Button Bn;
-		
-		Bn = (Button)findViewById(R.id.stop);		
-		Bn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				turnOffFlash();
-				turnOffRingTone();
-				m_audioManager.setStreamVolume(
-						   AudioManager.STREAM_RING,
-						   m_initVolume,
-						   AudioManager.FLAG_PLAY_SOUND
-						);
-				RingActivity.this.finish();
-			}
-		});
+		SeekBar mBar;
+		mBar = (SeekBar) findViewById(R.id.seekbar);
+		mBar.setOnSeekBarChangeListener(this);
 		m_hasFlash = getApplicationContext().getPackageManager()
 		        .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 		m_audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -60,6 +52,36 @@ public class RingActivity extends Activity {
 		turnOnRingTone();
 	}
 	
+	@Override
+    public void onProgressChanged(SeekBar seekBar, int progress,
+    		boolean fromUser) {
+		return;
+    }
+	
+	@Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    	return;
+    }
+	
+	 @Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		if (90 < seekBar.getProgress())
+		{
+			turnOffFlash();
+			turnOffRingTone();
+			m_audioManager.setStreamVolume(
+					   AudioManager.STREAM_RING,
+					   m_initVolume,
+					   AudioManager.FLAG_PLAY_SOUND
+					);
+			RingActivity.this.finish();
+		}
+		else
+		{
+			seekBar.setProgress(0);
+		}
+	}
+	 
 	protected void turnOnRingTone()
 	{
 		Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);

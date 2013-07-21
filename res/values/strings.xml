@@ -9,11 +9,16 @@
     <string name="lbl_title_trigger">Trigger alarm upon :</string>
     <string name="settings">Settings</string>
     <string name="demo">Demo</string>
-    <string name="stop">Stop me</string>
+    
+    <string name="ring_seek_max">100</string>
      
     <string name="robbed_pwd_title">Robbed phone pwd </string>
     <string name="robbed_pwd_summray">Please enter robbed phone pwd</string>
     
+	<string name="permlab_flashlight">permlab_flashlight</string>
+    <string name="permdesc_flashlight">permdesc_flashlight</string>
+    
+    <!--  Preferences  -->
     <string name="pref_key_settings_pwd">Settings pwd</string>
     <string name="pref_title_settings_pwd">Settings pwd </string>
     <string name="pref_sum_settings_pwd">Please enter settings acces pwd</string>
@@ -26,10 +31,6 @@
     <string name="pref_title_flash_light_chk_box">Use flashLight</string>
     <string name="pref_sum_flash_light_chk_box">on/off</string>
 
-    <string name="permlab_flashlight">permlab_flashlight</string>
-    <string name="permdesc_flashlight">permdesc_flashlight</string>
-
-    <!--  Preferences  -->
     
     <string name="pref_key_specific_caller">pref_specific_caller</string>
     <string name="pref_sum_specific_caller">if this number calls you, the ringer volume will be maxed out</string>
