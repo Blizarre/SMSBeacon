@@ -87,17 +87,17 @@ public class SMSReceiver extends BroadcastReceiver {
 
 	private Object getRingPhoneNumber(Context c) {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-		return preferences.getString(c.getString(R.string.pref_key_specific_caller), "");
+		return preferences.getString(c.getString(R.string.pref_prio_key_specific_caller), "");
 	}
 
 	private String getTriggerCodeSMS(Context c) {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-		return preferences.getString(c.getString(R.string.pref_key_lost_passwd), "");
+		return preferences.getString(c.getString(R.string.pref_home_key_pwd), "");
 	}
 
 	private String getTheftCodeSMS(Context c) {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
-		return preferences.getString(c.getString(R.string.pref_key_theft_passwd), "");
+		return preferences.getString(c.getString(R.string.pref_out_key_passwd), "");
 	}
 
 	private void specificCallerDetected(Context context) {

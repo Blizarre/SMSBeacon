@@ -121,6 +121,6 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener{
 		Context c = getApplicationContext();
 		SharedPreferences preferences = PreferenceManager.
 									getDefaultSharedPreferences(c);
-		return preferences.getBoolean(c.getString(R.string.pref_key_flash_light_chk_box), false);
+		return preferences.getBoolean(c.getString(R.string.pref_home_key_flash_light_chk_box), false);
 	}
 }

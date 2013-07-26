@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Config" >
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,5 +72,5 @@
     <TextView
   		android:id="@+id/delete_me"
   		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content" />
+  		android:layout_height="wrap_content" />-->
 </LinearLayout>

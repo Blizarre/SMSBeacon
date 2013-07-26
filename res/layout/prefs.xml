@@ -1,39 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
     <PreferenceCategory
-   		android:summary="passwords information"
-   		android:title="Pwds information" >
+   		android:summary="@string/pref_gal_cat_sum"
+   		android:title="@string/pref_gal_cat_title" >
+   		
+        <CheckBoxPreference
+		     android:key="@string/pref_gal_act_key"
+		     android:summary="@string/pref_gal_act_sum"
+		     android:title="@string/pref_gal_act_title" />
+    </PreferenceCategory>
+    <PreferenceCategory
+   		android:summary="@string/pref_home_cat_sum"
+   		android:title="@string/pref_home_cat_title" >
     	<EditTextPreference
-	     	android:key="@string/pref_key_lost_passwd"
-	     	android:summary="@string/pref_sum_lost_passwd"
-		    android:title="@string/pref_title_lost_passwd" />
-		<EditTextPreference
-		    android:key="@string/pref_key_theft_passwd"
-		    android:summary="@string/pref_sum_theft_passwd"
-		    android:title="@string/pref_title_theft_passwd" />
-		<EditTextPreference
-		    android:key="@string/pref_key_specific_caller"
-		    android:summary="@string/pref_sum_specific_caller"
-		    android:title="@string/pref_title_specific_caller" />		
-		<EditTextPreference
-		    android:key="@string/pref_key_settings_pwd"
-		    android:summary="@string/pref_sum_settings_pwd"
-		    android:title="@string/pref_title_settings_pwd" />
+	     	android:key="@string/pref_home_key_pwd"
+	     	android:summary="@string/pref_home_sum_pwd"
+		    android:title="@string/pref_home_title_pwd" />
+		<ListPreference
+		     android:entries="@array/listOptions"
+		     android:entryValues="@array/listValues"
+		     android:key="@string/pref_home_key_time"
+		     android:summary="@string/pref_home_sum_time"
+		     android:title="@string/pref_home_title_time" />
+		<CheckBoxPreference
+		     android:key="@string/pref_home_key_flash_light_chk_box"
+		     android:summary="@string/pref_home_sum_flash_light_chk_box"
+		     android:title="@string/pref_home_title_flash_light_chk_box" />
 	</PreferenceCategory>
 
 	<PreferenceCategory
-   		android:summary="settings"
-   		android:title="Settings" >
-	    <ListPreference
-		     android:entries="@array/listOptions"
-		     android:entryValues="@array/listValues"
-		     android:key="pref_key_ringtone_list"
-		     android:summary="@string/pref_sum_ringtone_list"
-		     android:title="@string/pref_title_ringtone_list" />
-
-	    <CheckBoxPreference
-		     android:key="@string/pref_key_flash_light_chk_box"
-		     android:summary="@string/pref_sum_flash_light_chk_box"
-		     android:title="@string/pref_title_flash_light_chk_box" />
+   		android:summary="@string/pref_out_cat_sum"
+   		android:title="@string/pref_out_cat_title">
+		<EditTextPreference
+		    android:key="@string/pref_out_key_passwd"
+		    android:summary="@string/pref_out_sum_passwd"
+		    android:title="@string/pref_out_title_passwd" />
 	</PreferenceCategory>	
+	
+	<PreferenceCategory
+   		android:summary="@string/pref_prio_cat_sum"
+   		android:title="@string/pref_prio_cat_title">
+		
+		<EditTextPreference
+		    android:key="@string/pref_prio_key_specific_caller"
+		    android:summary="@string/pref_prio_sum_specific_caller"
+		    android:title="@string/pref_prio_title_specific_caller" />
+	</PreferenceCategory>   
 </PreferenceScreen>

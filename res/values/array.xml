@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
    <string-array name="listOptions">
-     <item>Ringtone1</item>
-     <item>Ringtone2</item>
-     <item>Ringtone3</item>
+     <item>30 sec</item>
+     <item>1 min</item>
+     <item>2 min</item>
      </string-array>
  
    <string-array name="listValues">
-     <item>Ringtone 1</item>
-     <item>Ringtone 2</item>
-     <item>Ringtone 3</item>
+     <item>time_elapse_30_sec</item>
+     <item>time_elapse_1_min</item>
+     <item>time_elapse_2_min</item>
    </string-array>
 </resources>
