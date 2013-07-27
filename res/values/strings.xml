@@ -2,20 +2,8 @@
 <resources>
     <string name="app_name">SMSBeacon</string>
     <string name="action_settings">Settings</string>
-    <!--<string name="toggle_on_off">Activate</string>
-    <string name="lbl_sms_code"> - SMS code</string>
-    <string name="lbl_tel_number"> - Phone number</string>
-    <string name="lbl_title_trigger">Trigger alarm upon :</string>
-    <string name="settings">Settings</string>
-    <string name="demo">Demo</string>-->
     
     <string name="ring_seek_max">100</string>
-     
-    <string name="robbed_pwd_title">Robbed phone pwd </string>
-    <string name="robbed_pwd_summray">Please enter robbed phone pwd</string>
-    
-	<string name="permlab_flashlight">permlab_flashlight</string>
-    <string name="permdesc_flashlight">permdesc_flashlight</string>
     
     <!--  Preferences  -->
     <!-- General -->
@@ -23,41 +11,43 @@
     <string name="pref_gal_cat_title">General settings</string>
     
     <string name="pref_gal_act_key">chkbx activate</string>
-    <string name="pref_gal_act_sum">activate localisation</string>
-    <string name="pref_gal_act_title">activate localisation</string>
+    <string name="pref_gal_act_sum">Check to activate gps localisation</string>
+    <string name="pref_gal_act_title">Activate GPS localisation</string>
     
     <!-- Lost at home prefs -->
     <string name="pref_home_cat_sum">define ring preferences</string>
     <string name="pref_home_cat_title">Lost at home preferences</string>
     
     <string name="pref_home_key_pwd">ring pwd</string>
-    <string name="pref_home_title_pwd">ring pwd </string>
-    <string name="pref_home_sum_pwd">If this text is found in a SMS, it will trigger the loud alarm</string>
+    <string name="pref_home_title_pwd">Ring pwd </string>
+    <string name="pref_home_sum_pwd">If this text is found in a SMS, 
+        it will trigger the loud alarm</string>
     
     <string name="pref_home_key_time">ring time</string>
     <string name="pref_home_title_time">Ring time</string>
-    <string name="pref_home_sum_time">Select time the phone shall ring</string>
+    <string name="pref_home_sum_time">Select how long the phone shall ring</string>
     
     <string name="pref_home_key_flash_light_chk_box">checkBox</string>
-    <string name="pref_home_title_flash_light_chk_box">Use flashLight</string>
-    <string name="pref_home_sum_flash_light_chk_box">on/off</string>
+    <string name="pref_home_title_flash_light_chk_box">Use flashlight</string>
+    <string name="pref_home_sum_flash_light_chk_box">Uncheck to deactivate flashlight</string>
 
     <!-- Lost outdoor -->
-    <string name="pref_out_cat_sum">define GPS localisation preferences</string>
+    <string name="pref_out_cat_sum">Define GPS localisation preferences</string>
     <string name="pref_out_cat_title">GPS localisation</string>
     
     <string name="pref_out_key_passwd">localisation password</string>
-    <string name="pref_out_title_passwd">localisation password</string>
-    <string name="pref_out_sum_passwd">If this text is found in a SMS, it will send back its coordinates</string>
+    <string name="pref_out_title_passwd">Localisation password</string>
+    <string name="pref_out_sum_passwd">If this text is found in a SMS, 
+        it will send back its coordinates</string>
     
     <!-- Priority call -->
-    <string name="pref_prio_cat_sum">define line call</string>
+    <string name="pref_prio_cat_sum">Define line call</string>
     <string name="pref_prio_cat_title">Forget line call</string>
 
     <string name="pref_prio_key_specific_caller">pref_specific_caller</string>
-    <string name="pref_prio_sum_specific_caller">if this number calls you, the ringer volume will be maxed out</string>
-    <string name="pref_prio_title_specific_caller">forget line :</string>    
-    
+    <string name="pref_prio_sum_specific_caller">If this number calls you, the 
+        ringer volume will be maxed out</string>
+    <string name="pref_prio_title_specific_caller">Forget line :</string>    
 
     <string name="pref_sum_notification_sound">pref_sum_notification_sound</string>
     <string name="pref_title_notification_sound">pref_title_notification_sound</string>
