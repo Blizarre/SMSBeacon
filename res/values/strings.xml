@@ -51,4 +51,10 @@
 
     <string name="pref_sum_notification_sound">pref_sum_notification_sound</string>
     <string name="pref_title_notification_sound">pref_title_notification_sound</string>
+    
+    <!-- Images -->
+    <string name="img_title_conten_desc">title</string>
+    <string name="img_slide_conten_desc">slide instruction</string>
 </resources>
+
+
