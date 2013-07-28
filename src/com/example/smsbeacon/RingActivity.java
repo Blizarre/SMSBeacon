@@ -1,5 +1,11 @@
 package com.example.smsbeacon;
 
+import java.util.Calendar;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,13 +17,11 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	private Camera m_cam = null;
@@ -29,10 +33,69 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	private String m_ringTime = null;
 	AudioManager m_audioManager;
 	
+	protected void prepareRingTone() {
+		m_audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+		m_initVolume = m_audioManager.getStreamVolume(AudioManager.STREAM_RING);
+		m_audioManager.setStreamVolume(
+				   AudioManager.STREAM_RING,
+				   m_audioManager.getStreamMaxVolume(AudioManager.STREAM_RING),
+				   AudioManager.FLAG_PLAY_SOUND
+				);
+	}
+	
+	
+	protected void prepareRingToneStopThread() {
+		Timer t = new Timer();
+		Dictionary<String, Integer> waitTime = new Hashtable<String, Integer>();
+		
+		waitTime.put("time_elapse_30_sec", 30);
+		waitTime.put("time_elapse_1_min" , 60);
+		waitTime.put("time_elapse_2_min" ,120);
+		
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.SECOND, waitTime.get(m_ringTime));
+		
+		t.schedule( new TimerTask() {
+			
+			@Override
+			public void run() {
+				stopRingTone();
+			}
+		}, c.getTime());			
+	}
+	
+	protected void stopRingTone() {
+		turnOffFlash();
+		turnOffRingTone();
+		m_audioManager.setStreamVolume(
+				   AudioManager.STREAM_RING,
+				   m_initVolume,
+				   AudioManager.FLAG_PLAY_SOUND
+				);		
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ring);
+		
+		prepareInterfaceElements();
+		
+		if (shallUseFlash())
+		{
+			turnOnFlash();
+		}
+		
+		prepareRingTone();
+		
+		turnOnRingTone();
+
+		prepareRingToneStopThread();
+
+	}
+
+
+	protected void prepareInterfaceElements() {
 		SeekBar m_Bar;
 		m_Bar = (SeekBar)findViewById(R.id.seekbar);
 		m_Bar.setOnSeekBarChangeListener(this);
@@ -42,48 +105,9 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 		m_ringTime = prefs.getString(getBaseContext().getString(R.string.pref_home_key_time), "default choice");
 		m_hasFlash = getApplicationContext().getPackageManager()
 		        .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-		m_audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-		m_initVolume = m_audioManager.getStreamVolume(AudioManager.STREAM_RING);
-		m_audioManager.setStreamVolume(
-				   AudioManager.STREAM_RING,
-				   m_audioManager.getStreamMaxVolume(AudioManager.STREAM_RING),
-				   AudioManager.FLAG_PLAY_SOUND
-				);
-		if (shallUseFlash())
-		{
-			turnOnFlash();
-		}
-		turnOnRingTone();
-		new Thread(new Runnable(){
-			public void run(){
-			try {
-				if (m_ringTime.equals("time_elapse_30_sec"))
-				{
-					Thread.sleep(30000);
-				}
-				else if (m_ringTime.equals("time_elapse_1_min"))
-				{
-					Thread.sleep(60000);
-				}
-				else if (m_ringTime.equals("time_elapse_2_min"))
-				{
-					Thread.sleep(120000);
-				}
-				turnOffFlash();
-				turnOffRingTone();
-				m_audioManager.setStreamVolume(
-						   AudioManager.STREAM_RING,
-						   m_initVolume,
-						   AudioManager.FLAG_PLAY_SOUND
-						);
-				RingActivity.this.finish();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			}
-			}).start();
 	}
-	
+
+
 	@Override
     public void onProgressChanged(SeekBar seekBar, int progress,
     		boolean fromUser) {
@@ -99,13 +123,7 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		if (90 < seekBar.getProgress())
 		{
-			turnOffFlash();
-			turnOffRingTone();
-			m_audioManager.setStreamVolume(
-					   AudioManager.STREAM_RING,
-					   m_initVolume,
-					   AudioManager.FLAG_PLAY_SOUND
-					);
+			stopRingTone();
 			RingActivity.this.finish();
 		}
 		else
@@ -117,7 +135,6 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	protected void turnOnRingTone()
 	{
 		Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-		
 		m_rgtone = RingtoneManager.getRingtone(getApplicationContext(), notification);
 		m_rgtone.play();
 	}

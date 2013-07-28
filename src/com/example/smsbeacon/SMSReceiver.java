@@ -118,8 +118,8 @@ public class SMSReceiver extends BroadcastReceiver {
 	private void theftCodeDetected(Context c, String phoneNumber) {
 		Log.i(TAG, "SMS lost code trigger detected");
 		abortBroadcast(); // Do not dispatch the SMS to anybody else
-		Intent intent = new Intent(c, SpyService.class);
-		intent.putExtra(SpyService.DATA_EXTRA_CALLER, phoneNumber);
-		c.startService(intent);
+//		Intent intent = new Intent(c, SpyService.class);
+//		intent.putExtra(SpyService.DATA_EXTRA_CALLER, phoneNumber);
+//		c.startService(intent);
 	}	
 }
