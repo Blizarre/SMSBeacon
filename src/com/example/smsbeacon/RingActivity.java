@@ -8,6 +8,7 @@ import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -17,6 +18,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.SeekBar;
@@ -32,6 +34,10 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	private  TextView m_phoneNumber = null;
 	private String m_ringTime = null;
 	AudioManager m_audioManager;
+	
+	public static final String DATA_EXTRA_CALLER = "param_intent_caller";
+	public static final String DATA_EXTRA_ACTION = "param_intent_action";
+	public enum Action { RINGTONE, SMS_LOCATION };
 	
 	protected void prepareRingTone() {
 		m_audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
@@ -76,31 +82,63 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Intent origin = getIntent();
+		String callerNumber = origin.getStringExtra(DATA_EXTRA_CALLER);
+		Action act = (Action)origin.getSerializableExtra(DATA_EXTRA_ACTION);
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ring);
 		
-		prepareInterfaceElements();
+		prepareInterfaceElements(act, callerNumber);
 		
 		if (shallUseFlash())
 		{
 			turnOnFlash();
 		}
 		
-		prepareRingTone();
-		
-		turnOnRingTone();
-
-		prepareRingToneStopThread();
+		if(act == Action.RINGTONE) {
+			prepareRingTone();
+			turnOnRingTone();
+			prepareRingToneStopThread();
+		} else if(act == Action.SMS_LOCATION) {
+			sendLocationSMS(getLastLocation());
+			prepareLocationThread();
+		}
 
 	}
 
 
-	protected void prepareInterfaceElements() {
+	private void prepareLocationThread() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	private void sendLocationSMS(Object lastLocation) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	private Object getLastLocation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	protected void prepareInterfaceElements(Action act, String callerNumber) {
 		SeekBar m_Bar;
+		String message;
+		
 		m_Bar = (SeekBar)findViewById(R.id.seekbar);
 		m_Bar.setOnSeekBarChangeListener(this);
 		m_phoneNumber = (TextView)findViewById(R.id.phone_number);
-		m_phoneNumber.setText("06.86.65.37.93 tried to locate you");
+		if(act == Action.RINGTONE)
+			message = getString(R.string.msg_ringtone_num_fmt, callerNumber);
+		else if(act == Action.SMS_LOCATION)
+			message = getString(R.string.msg_location_sms_num_fmt, callerNumber);
+		
+		m_phoneNumber.setText(message);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		m_ringTime = prefs.getString(getBaseContext().getString(R.string.pref_home_key_time), "default choice");
 		m_hasFlash = getApplicationContext().getPackageManager()

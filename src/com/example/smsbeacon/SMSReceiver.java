@@ -11,10 +11,13 @@ import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.example.smsbeacon.RingActivity.Action;
+
 public class SMSReceiver extends BroadcastReceiver {
 
 	private final String TAG = this.getClass().getSimpleName();
-
+	 
+	
 	@Override
 	/**
 	 * Called when a SMS is received and check the content of the SMS for a special code.
@@ -72,11 +75,11 @@ public class SMSReceiver extends BroadcastReceiver {
 			for ( Object o : smsextras) {
 				SmsMessage smsmsg = SmsMessage.createFromPdu((byte[])o);
 				String strMsgBody = smsmsg.getMessageBody();
-				if(strMsgBody.equals(getTriggerCodeSMS(context))) {
-					lostCodeDetected(context);
+				if(strMsgBody.equals(getTriggerRingToneCodeSMS(context))) {
+					lostCodeDetected(context, smsmsg.getOriginatingAddress(), Action.RINGTONE);
 					break;
-				} else if(strMsgBody.equals(getTheftCodeSMS(context))) {
-					theftCodeDetected(context, smsmsg.getOriginatingAddress());
+				} else if(strMsgBody.equals(getTriggerLocationCodeSMS(context))) {
+					lostCodeDetected(context, smsmsg.getOriginatingAddress(), Action.SMS_LOCATION);
 					break;
 				}
 			}
@@ -90,12 +93,12 @@ public class SMSReceiver extends BroadcastReceiver {
 		return preferences.getString(c.getString(R.string.pref_prio_key_specific_caller), "");
 	}
 
-	private String getTriggerCodeSMS(Context c) {
+	private String getTriggerRingToneCodeSMS(Context c) {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
 		return preferences.getString(c.getString(R.string.pref_home_key_pwd), "");
 	}
 
-	private String getTheftCodeSMS(Context c) {
+	private String getTriggerLocationCodeSMS(Context c) {
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(c);
 		return preferences.getString(c.getString(R.string.pref_out_key_passwd), "");
 	}
@@ -107,19 +110,14 @@ public class SMSReceiver extends BroadcastReceiver {
 		am.setStreamVolume(AudioManager.STREAM_RING, am.getStreamMaxVolume(AudioManager.STREAM_RING), 0);
 	}
 	
-	private void  lostCodeDetected(Context context) {
+	private void  lostCodeDetected(Context context, String phoneNumber, Action act) {
 		Log.i(TAG, "SMS lost code trigger detected");
 		abortBroadcast(); // Do not dispatch the SMS to anybody else
 		Intent newintent = new Intent(context, RingActivity.class);
+		newintent.putExtra(RingActivity.DATA_EXTRA_CALLER, phoneNumber);
+		newintent.putExtra(RingActivity.DATA_EXTRA_ACTION, act);
 		newintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(newintent);		
 	}
 
-	private void theftCodeDetected(Context c, String phoneNumber) {
-		Log.i(TAG, "SMS lost code trigger detected");
-		abortBroadcast(); // Do not dispatch the SMS to anybody else
-//		Intent intent = new Intent(c, SpyService.class);
-//		intent.putExtra(SpyService.DATA_EXTRA_CALLER, phoneNumber);
-//		c.startService(intent);
-	}	
 }

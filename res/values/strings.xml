@@ -5,6 +5,9 @@
     
     <string name="ring_seek_max">100</string>
     
+    <string name="msg_ringtone_num_fmt">Ringtone SMS from %s</string>
+    <string name="msg_location_sms_num_fmt">Location SMS from %s</string>
+    
     <!--  Preferences  -->
     <!-- General -->
     <string name="pref_gal_cat_sum">General preferences</string>
