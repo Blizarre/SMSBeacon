@@ -7,8 +7,8 @@
      </string-array>
  
    <string-array name="listValues">
-     <item>time_elapse_30_sec</item>
-     <item>time_elapse_1_min</item>
-     <item>time_elapse_2_min</item>
+     <item>30</item>
+     <item>60</item>
+     <item>120</item>
    </string-array>
 </resources>

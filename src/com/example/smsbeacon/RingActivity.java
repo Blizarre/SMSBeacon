@@ -1,42 +1,58 @@
 package com.example.smsbeacon;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-public class RingActivity extends Activity implements OnSeekBarChangeListener {
+public class RingActivity extends Activity implements OnSeekBarChangeListener, LocationListener {
 	private Camera m_cam = null;
 	private boolean m_hasFlash = false;
 	private Parameters m_param = null;
 	private Ringtone m_rgtone = null;
 	private int m_initVolume = 0;
-	private  TextView m_phoneNumber = null;
 	private String m_ringTime = null;
+	private String mCaller;
+	private Boolean m_isLocAllowed;
 	AudioManager m_audioManager;
+	private boolean m_locationSMSSend;;
+	private final String TAG = getClass().getName();
+	private boolean m_GPSActivated;
+	private Location lastLocation;
 	
 	public static final String DATA_EXTRA_CALLER = "param_intent_caller";
 	public static final String DATA_EXTRA_ACTION = "param_intent_action";
+	private LocationManager m_LocationManager;
+	private Action m_Action;
 	public enum Action { RINGTONE, SMS_LOCATION };
 	
 	protected void prepareRingTone() {
@@ -52,20 +68,21 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	
 	protected void prepareRingToneStopThread() {
 		Timer t = new Timer();
-		Dictionary<String, Integer> waitTime = new Hashtable<String, Integer>();
-		
-		waitTime.put("time_elapse_30_sec", 30);
-		waitTime.put("time_elapse_1_min" , 60);
-		waitTime.put("time_elapse_2_min" ,120);
 		
 		Calendar c = Calendar.getInstance();
-		c.add(Calendar.SECOND, waitTime.get(m_ringTime));
+		c.add(Calendar.SECOND, Integer.parseInt(m_ringTime));
 		
 		t.schedule( new TimerTask() {
 			
 			@Override
 			public void run() {
-				stopRingTone();
+				RingActivity.this.runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						stopRingTone();
+					}
+				});
 			}
 		}, c.getTime());			
 	}
@@ -83,25 +100,21 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Intent origin = getIntent();
-		String callerNumber = origin.getStringExtra(DATA_EXTRA_CALLER);
-		Action act = (Action)origin.getSerializableExtra(DATA_EXTRA_ACTION);
+		mCaller = origin.getStringExtra(DATA_EXTRA_CALLER);
+		m_Action = (Action)origin.getSerializableExtra(DATA_EXTRA_ACTION);
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ring);
 		
-		prepareInterfaceElements(act, callerNumber);
+		prepareInterfaceElements(m_Action, mCaller);
 		
-		if (shallUseFlash())
-		{
-			turnOnFlash();
-		}
-		
-		if(act == Action.RINGTONE) {
+		if(m_Action == Action.RINGTONE) {
+			if (shallUseFlash()) turnOnFlash();
 			prepareRingTone();
 			turnOnRingTone();
 			prepareRingToneStopThread();
-		} else if(act == Action.SMS_LOCATION) {
-			sendLocationSMS(getLastLocation());
+		} else if(m_Action == Action.SMS_LOCATION && m_isLocAllowed) {
+			sendLocationSMS(getLastLocation(), mCaller, true);
 			prepareLocationThread();
 		}
 
@@ -109,40 +122,54 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 
 
 	private void prepareLocationThread() {
-		// TODO Auto-generated method stub
 		
-	}
-
-
-	private void sendLocationSMS(Object lastLocation) {
-		// TODO Auto-generated method stub
+		m_LocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
 		
-	}
+		if(m_LocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			Log.i(TAG, "GPS provider enabled, requesting update");
+			m_LocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, Looper.getMainLooper());
+			m_GPSActivated = true;
+		} else {
+			Log.i(TAG, "GPS provider disabled");
+		}
+		m_LocationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, Looper.getMainLooper());
+		
+		Timer t = new Timer();
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.MINUTE, 3);
+		
+		t.schedule( new TimerTask() {
 
-
-	private Object getLastLocation() {
-		// TODO Auto-generated method stub
-		return null;
+			@Override
+			public void run() {
+				Log.i(TAG, "Timeout occured when waiting for the GPS data");
+				if(!m_locationSMSSend)
+					sendLocationSMS(lastLocation, mCaller, false);
+				m_LocationManager.removeUpdates(RingActivity.this);
+			}
+		}, c.getTime());			
 	}
+		
 
 
 	protected void prepareInterfaceElements(Action act, String callerNumber) {
 		SeekBar m_Bar;
-		String message;
+		String message = "";
 		
 		m_Bar = (SeekBar)findViewById(R.id.seekbar);
 		m_Bar.setOnSeekBarChangeListener(this);
-		m_phoneNumber = (TextView)findViewById(R.id.phone_number);
+		TextView m_phoneNumber = (TextView)findViewById(R.id.phone_number);
 		if(act == Action.RINGTONE)
 			message = getString(R.string.msg_ringtone_num_fmt, callerNumber);
 		else if(act == Action.SMS_LOCATION)
 			message = getString(R.string.msg_location_sms_num_fmt, callerNumber);
 		
 		m_phoneNumber.setText(message);
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		m_ringTime = prefs.getString(getBaseContext().getString(R.string.pref_home_key_time), "default choice");
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		m_ringTime = prefs.getString(getString(R.string.pref_home_key_time), "default choice");
 		m_hasFlash = getApplicationContext().getPackageManager()
 		        .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+		m_isLocAllowed = prefs.getBoolean(getString(R.string.pref_gal_act_key), false);
 	}
 
 
@@ -161,8 +188,17 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		if (90 < seekBar.getProgress())
 		{
-			stopRingTone();
-			RingActivity.this.finish();
+			RingActivity.this.runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					if(m_Action == Action.RINGTONE) {
+						stopRingTone();
+					}
+					RingActivity.this.finish();
+				}
+			});
+			
 		}
 		else
 		{
@@ -179,6 +215,7 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	
 	protected void turnOffRingTone()
 	{
+		
 		m_rgtone.stop();
 	}
 	
@@ -211,9 +248,101 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	
 	protected boolean shallUseFlash()
 	{
-		Context c = getApplicationContext();
 		SharedPreferences preferences = PreferenceManager.
-									getDefaultSharedPreferences(c);
-		return preferences.getBoolean(c.getString(R.string.pref_home_key_flash_light_chk_box), false);
+									getDefaultSharedPreferences(this);
+		return preferences.getBoolean(getString(R.string.pref_home_key_flash_light_chk_box), false);
 	}
+
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		Log.i(TAG, provider + " status changed : " + status);
+		if(status == LocationProvider.TEMPORARILY_UNAVAILABLE ||
+				   status == LocationProvider.OUT_OF_SERVICE) {
+			if(provider == LocationManager.GPS_PROVIDER)
+				m_GPSActivated = false;
+		}
+	}
+	
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void onProviderDisabled(String provider) {
+		Log.i(TAG, provider  + " is disabled");
+		if(provider == LocationManager.GPS_PROVIDER)
+			m_GPSActivated = false;
+	}
+	
+	@Override
+	public void onLocationChanged(Location location) {
+		// No GPS ? just send the location
+		if(!m_GPSActivated) {
+			Log.i(TAG, "Location changed, No GPS => Send the SMS");
+			sendLocationSMS(location,  mCaller, false);
+			m_locationSMSSend = true;
+		}
+		// We are most likely the GPS and already got a locationUpdate from the network
+		else if(lastLocation != null) {
+			Log.i(TAG, "Location changed, GPS activated and already another location => Send the SMS");
+			sendLocationSMS(bestBetween(location, lastLocation),  mCaller, false);
+		} else {
+			Log.i(TAG, "Location changed, GPS activated but no other location => do nothing");
+			lastLocation = location;
+		}
+	}
+
+	/**
+	 * Get Last known location from the GPS or using the cell tower/wifi. 
+	 * @return A Location object representing the last known location of the device
+	 */
+	private Location getLastLocation() {
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Location lastLoc = null;
+		
+		if(m_isLocAllowed) {
+			lastLoc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+			if(lastLoc == null)
+				lastLoc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		}
+		return lastLoc;
+	}
+	
+	private void sendLocationSMS(Location loc, String receiver, Boolean isLastLocation) {
+		double lon, lat, alt, prec;
+		long temp;
+		String lastFix;
+		StringBuilder positionStr = new StringBuilder();
+		
+		if(isLastLocation)
+			positionStr.append(getString(R.string.sms_lastloc_header));
+		else 
+			positionStr.append(getString(R.string.sms_newloc_header));
+		
+		if(loc == null) {
+			positionStr.append(getString(R.string.sms_noloc));
+		} else {
+			lat = loc.getLatitude();
+			lon = loc.getLongitude();
+			alt = loc.getAltitude();
+			prec = loc.getAccuracy();
+			temp = loc.getTime();
+
+			lastFix = DateFormat.getDateTimeInstance().format(new Date(temp));
+			
+			positionStr.append(String.format(getString(R.string.sms_loc_fmt), lon, lat, alt, prec, lastFix));
+		}
+		Log.i(TAG, "send sms to " + receiver + " with content '" + positionStr + "'");
+        SmsManager sms = SmsManager.getDefault();
+       sms.sendTextMessage(receiver, null, positionStr.toString(), null, null);		
+	}
+	
+	public Location bestBetween(Location a, Location b) {
+		if(a.getAccuracy() < b.getAccuracy()) return a;
+		else return b;
+	}
+
 }

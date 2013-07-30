@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <string name="sms_lastloc_header">Last known location (may be old) : </string>
+    <string name="sms_newloc_header">Current location</string>
+    <string name="sms_noloc">No known location</string>
+    <string name="sms_loc_fmt">%1$.3f E %2$.3f N\naltitude %3$.0f m., accuracy %4$.0f m.\ntime : %5$s</string>
+    
     <string name="app_name">SMSBeacon</string>
     <string name="action_settings">Settings</string>
     
@@ -32,7 +38,7 @@
     
     <string name="pref_home_key_flash_light_chk_box">checkBox</string>
     <string name="pref_home_title_flash_light_chk_box">Use flashlight</string>
-    <string name="pref_home_sum_flash_light_chk_box">Uncheck to deactivate flashlight</string>
+    <string name="pref_home_sum_flash_light_chk_box">Check to activate flashlight</string>
 
     <!-- Lost outdoor -->
     <string name="pref_out_cat_sum">Define GPS localisation preferences</string>
