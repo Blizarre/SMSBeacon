@@ -3,7 +3,6 @@ package com.example.smsbeacon;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.database.Cursor;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

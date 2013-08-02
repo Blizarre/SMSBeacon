@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
@@ -105,9 +104,8 @@ public class SMSReceiver extends BroadcastReceiver {
 
 	private void specificCallerDetected(Context context) {
 		Log.i(TAG, "Ringing volume is set to its maximum");		
-		AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-		am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-		am.setStreamVolume(AudioManager.STREAM_RING, am.getStreamMaxVolume(AudioManager.STREAM_RING), 0);
+		RingToneHandler ring = new RingToneHandler(context);
+		ring.SetMaxVolume();
 	}
 	
 	private void  lostCodeDetected(Context context, String phoneNumber, Action act) {
