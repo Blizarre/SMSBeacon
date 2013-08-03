@@ -10,6 +10,7 @@ public class RingToneHandler {
 
 	protected final  Ringtone mRingTone;
 	protected final  Context mContext;
+	protected FlashLightHandler mFlashH;
 	
 	protected int mInitVolume;
 	
@@ -18,7 +19,7 @@ public class RingToneHandler {
 	protected class RingToneRunnable implements Runnable {
 		protected int mMaxDuration;
 		protected int mOriginalVolume;
-
+		
 		/**
 		 * Create the class needed to stop automatically the ringtone.
 		 * @param maxDuration
@@ -80,8 +81,13 @@ public class RingToneHandler {
 	 * the ringtone will stop
 	 * @param maxDurationMs Maximum duration of the Ringtone
 	 */
-	public void startRingTone(int maxDurationMs) {
-		Runnable runRingTone = new RingToneRunnable(maxDurationMs);
+	public void startRingTone(int maxDurationMs, boolean useFlash) {
+		if(useFlash)
+			mFlashH = new FlashLightHandler();
+		else
+			mFlashH = null;
+		// runRingTone is now aware of the element mFlashH
+		Runnable runRingTone = new RingToneRunnable(maxDurationMs);		
 		mAutoStop = new Thread(runRingTone);
 		mAutoStop.start();
 	}
@@ -91,6 +97,7 @@ public class RingToneHandler {
 			throw new IllegalStateException("Ringtone already playing");
 		mInitVolume = SetMaxVolume();
 		mRingTone.play();
+		mFlashH.startFlicker();
 	}
 	
 	/**
@@ -105,6 +112,8 @@ public class RingToneHandler {
 		else {
 			mRingTone.stop();
 			setVolume(mInitVolume);
+			if(mFlashH != null)
+				mFlashH.stopFlicker();
 		}
 	}	
 }

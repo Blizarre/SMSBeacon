@@ -7,7 +7,6 @@ import android.hardware.Camera.Parameters;
 
 public class FlashLightHandler {
 	private final Camera mCamera;
-	private Context mContext;
 	protected Thread mFlickerThread = null;
 	protected boolean mIsStarted;
 
@@ -38,7 +37,8 @@ public class FlashLightHandler {
 					FlashLightHandler.this.stop();
 				} catch (InterruptedException e) {
 					// Someone asked nicely to stop this thread. t.interrupt()
-					// will set the flag for isInterrupted()  
+					// will set the flag for isInterrupted()
+					FlashLightHandler.this.stop();
 					t.interrupt();
 				}
 			}
@@ -46,12 +46,12 @@ public class FlashLightHandler {
 	}
 	
 	
-	public boolean hasFlashLight() {
-		PackageManager packM = mContext.getPackageManager();
+	public static boolean hasFlashLight(Context c) {
+		PackageManager packM = c.getPackageManager();
 		return  packM.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 	}
 	
-	public FlashLightHandler(Context c) {
+	public FlashLightHandler() {
 		mCamera = Camera.open();     
 	}
 	
@@ -67,9 +67,12 @@ public class FlashLightHandler {
 	}
 
 	public void stop() {
+		// Needed because the thread can be interrupted in an on or off state
+		// enable us to be less conservative about the use of the stop  
 		if(!mIsStarted) 
-			throw new IllegalStateException("Camera has not been initialized");
+			return;
 
+		mIsStarted = false;
         mCamera.stopPreview();
 	}
 	
@@ -79,7 +82,7 @@ public class FlashLightHandler {
 	
 	public void startFlicker(int onDurationMs, int offDurationMs) {
 		Runnable flickRun;
-		if(mFlickerThread != null && !mFlickerThread.isAlive()) {
+		if(mFlickerThread == null || !mFlickerThread.isAlive()) {
 			flickRun = new FlickerRunnable(onDurationMs, offDurationMs);
 			mFlickerThread = new Thread( flickRun );
 			mFlickerThread.start();

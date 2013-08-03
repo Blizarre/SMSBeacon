@@ -2,7 +2,7 @@
 <resources>
     
     <string name="sms_lastloc_header">Last known location (may be old) : </string>
-    <string name="sms_newloc_header">Current location</string>
+    <string name="sms_newloc_header">Current location : </string>
     <string name="sms_noloc">No known location</string>
     <string name="sms_loc_fmt">%1$.3f E %2$.3f N\naltitude %3$.0f m., accuracy %4$.0f m.\ntime : %5$s</string>
     
@@ -20,12 +20,12 @@
     <string name="pref_gal_cat_title">General settings</string>
     
     <string name="pref_gal_act_key">chkbx activate</string>
-    <string name="pref_gal_act_sum">Check to activate gps localisation</string>
+    <string name="pref_gal_act_sum">Check to activate localisation SMS</string>
     <string name="pref_gal_act_title">Activate GPS localisation</string>
     
     <!-- Lost at home prefs -->
     <string name="pref_home_cat_sum">define ring preferences</string>
-    <string name="pref_home_cat_title">Lost at home preferences</string>
+    <string name="pref_home_cat_title">Ringtone preferences</string>
     
     <string name="pref_home_key_pwd">ring pwd</string>
     <string name="pref_home_title_pwd">Ring pwd </string>
@@ -41,13 +41,13 @@
     <string name="pref_home_sum_flash_light_chk_box">Check to activate flashlight</string>
 
     <!-- Lost outdoor -->
-    <string name="pref_out_cat_sum">Define GPS localisation preferences</string>
-    <string name="pref_out_cat_title">GPS localisation</string>
+    <string name="pref_out_cat_sum">Define localisation preferences</string>
+    <string name="pref_out_cat_title">localisation</string>
     
     <string name="pref_out_key_passwd">localisation password</string>
     <string name="pref_out_title_passwd">Localisation password</string>
     <string name="pref_out_sum_passwd">If this text is found in a SMS, 
-        it will send back its coordinates</string>
+        it will send the coordinates of the phone back by SMS</string>
     
     <!-- Priority call -->
     <string name="pref_prio_cat_sum">Define line call</string>
@@ -55,7 +55,7 @@
 
     <string name="pref_prio_key_specific_caller">pref_specific_caller</string>
     <string name="pref_prio_sum_specific_caller">If this number calls you, the 
-        ringer volume will be maxed out</string>
+        ringer volume set to its maximum</string>
     <string name="pref_prio_title_specific_caller">Forget line :</string>    
 
     <string name="pref_sum_notification_sound">pref_sum_notification_sound</string>
@@ -63,7 +63,8 @@
     
     <!-- Images -->
     <string name="img_title_conten_desc">title</string>
-    <string name="img_slide_conten_desc">slide instruction</string>
+    <string name="lbl_slide_to_stop">Slide to stop</string>
+    
 </resources>
 
 
