@@ -1,6 +1,7 @@
 package com.example.smsbeacon;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -156,9 +157,12 @@ public class GPSOverSMSHandler implements LocationListener {
 			
 			positionStr.append(String.format(mContext.getString(R.string.sms_loc_fmt), lon, lat, alt, prec, lastFix));
 		}
-		Log.i(TAG, "send sms to " + receiver + " with content '" + positionStr + "'");
+		
+		Log.i(TAG, "send sms to " + receiver + " with content '" + positionStr.toString() + "'");
         SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(receiver, null, positionStr.toString(), null, null);		
+        // Trick used if the message is too long or have non English characters
+        ArrayList<String> parts = sms.divideMessage(positionStr.toString());
+        sms.sendMultipartTextMessage(receiver, null, parts, null, null);        
 	}
 	
 	public Location bestBetween(Location a, Location b) {
