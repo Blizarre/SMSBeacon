@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="sms_lastloc_header">Dernière position connue (peut être ancienne) : </string>
+    <string name="sms_newloc_header">Position actuelle : </string>
+    <string name="sms_noloc">Inconnue</string>
+    <string name="sms_loc_fmt">%1$.3f E %2$.3f N\nAltitude %3$.0f m., Précision %4$.0f m.\nHeure : %5$s</string>
+    
+    <string name="app_name">SMSBeacon</string>
+    <string name="action_settings">Paramètres</string>
+    
+    <string name="ring_seek_max">100</string>
+    
+    <string name="msg_ringtone_num_fmt">SMS de Sonnerie de %s</string>
+    <string name="msg_location_sms_num_fmt">SMS de Positionnement de %s</string>
+    
+    <!--  Preferences  -->
+    <!-- General -->
+    <string name="pref_gal_cat_sum"> </string>
+    <string name="pref_gal_cat_title">Préférences générales</string>
+    
+    <string name="pref_gal_act_key">chkbx activate</string>
+    <string name="pref_gal_act_sum">Activer la demande de localisation par SMS</string>
+    <string name="pref_gal_act_title">Activer la localisation</string>
+    
+    <!-- Lost at home prefs -->
+    <string name="pref_home_cat_sum">Paramétrage de la demande de sonnerie</string>
+    <string name="pref_home_cat_title">Paramètre sonnerie</string>
+    
+    <string name="pref_home_key_pwd">ring pwd</string>
+    <string name="pref_home_title_pwd">Mot de passe de sonnerie</string>
+    <string name="pref_home_sum_pwd">Si ce texte est trouvé dans un SMS, il va déclencher une alarme
+        au volume maximum</string>
+    
+    <string name="pref_home_key_time">ring time</string>
+    <string name="pref_home_title_time">Temps de sonnerie</string>
+    <string name="pref_home_sum_time">Sélection de la durée maximale de la sonnerie</string>
+    
+    <string name="pref_home_key_flash_light_chk_box">checkBox</string>
+    <string name="pref_home_title_flash_light_chk_box">Utiliser le flash</string>
+    <string name="pref_home_sum_flash_light_chk_box">Cocher pour activer le flash de l\'appareil 
+        photo en plus de la sonnerie</string>
+
+    <!-- Lost outdoor -->
+    <string name="pref_out_cat_sum">Paramétrage de la demande de Position</string>
+    <string name="pref_out_cat_title">Paramètre position</string>
+    
+    <string name="pref_out_key_passwd">localisation password</string>
+    <string name="pref_out_title_passwd">Mot de passe de Localisation</string>
+    <string name="pref_out_sum_passwd">Si ce texte est trouvé dans un SMS, il va déclencher l\'envoi
+        à l\'émetteur du SMS de messages contenant la position du téléphone</string>
+    
+    <!-- Priority call -->
+    <string name="pref_prio_cat_sum"> </string>
+    <string name="pref_prio_cat_title">Appel prioritaire</string>
+
+    <string name="pref_prio_key_specific_caller">pref_specific_caller</string>
+    <string name="pref_prio_sum_specific_caller">En cas d\'appel de ce numéro, 
+        le volume de la sonnerie passe au maximum</string>
+    <string name="pref_prio_title_specific_caller">Numéro prioritaire</string>    
+
+    <string name="pref_sum_notification_sound">pref_sum_notification_sound</string>
+    <string name="pref_title_notification_sound">pref_title_notification_sound</string>
+    
+    <!-- Images -->
+    <string name="img_title_conten_desc">title</string>
+    <string name="lbl_slide_to_stop">Faire glisser à droite pour arrêter</string>
+    
+</resources>
+
+

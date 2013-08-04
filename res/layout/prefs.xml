@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     
-    <PreferenceCategory
-   		android:summary="@string/pref_gal_cat_sum"
-   		android:title="@string/pref_gal_cat_title" >
-   		
-        <CheckBoxPreference
-		     android:key="@string/pref_gal_act_key"
-		     android:summary="@string/pref_gal_act_sum"
-		     android:title="@string/pref_gal_act_title" />
-    </PreferenceCategory>
+
     <PreferenceCategory
    		android:summary="@string/pref_home_cat_sum"
    		android:title="@string/pref_home_cat_title" >
@@ -32,6 +24,12 @@
 	<PreferenceCategory
    		android:summary="@string/pref_out_cat_sum"
    		android:title="@string/pref_out_cat_title">
+		
+        <CheckBoxPreference
+	     	android:key="@string/pref_gal_act_key"
+    	 	android:summary="@string/pref_gal_act_sum"
+     		android:title="@string/pref_gal_act_title" />
+	    
 		<EditTextPreference
 		    android:key="@string/pref_out_key_passwd"
 		    android:summary="@string/pref_out_sum_passwd"
