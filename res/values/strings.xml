@@ -20,7 +20,7 @@
     <string name="pref_gal_cat_title">General settings</string>
     
     <string name="pref_gal_act_key">chkbx activate</string>
-    <string name="pref_gal_act_sum">Check to activate the localisation by SMS</string>
+    <string name="pref_gal_act_sum">Check to activate the location by SMS</string>
     <string name="pref_gal_act_title">Activate localisation</string>
     
     <!-- Lost at home prefs -->
@@ -42,10 +42,10 @@
 
     <!-- Lost outdoor -->
     <string name="pref_out_cat_sum"> </string>
-    <string name="pref_out_cat_title">localisation</string>
+    <string name="pref_out_cat_title">location</string>
     
-    <string name="pref_out_key_passwd">localisation password</string>
-    <string name="pref_out_title_passwd">Localisation password</string>
+    <string name="pref_out_key_passwd">location password</string>
+    <string name="pref_out_title_passwd">location password</string>
     <string name="pref_out_sum_passwd">If this text is found in a SMS, 
         it will send the coordinates of the phone back by SMS</string>
     
@@ -54,7 +54,7 @@
     <string name="pref_prio_cat_title">Priority call</string>
 
     <string name="pref_prio_key_specific_caller">pref_specific_caller</string>
-    <string name="pref_prio_sum_specific_caller">If this number calls you, the 
+    <string name="pref_prio_sum_specific_caller">Ifcalled from this number, the 
         ringtone volume will be set to its maximum</string>
     <string name="pref_prio_title_specific_caller">Priority call number</string>    
 
