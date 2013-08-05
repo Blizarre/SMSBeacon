@@ -11,8 +11,8 @@
     
     <string name="ring_seek_max">100</string>
     
-    <string name="msg_ringtone_num_fmt">SMS de Sonnerie de %s</string>
-    <string name="msg_location_sms_num_fmt">SMS de Positionnement de %s</string>
+    <string name="msg_ringtone_num_fmt">Sms de sonnerie de %s</string>
+    <string name="msg_location_sms_num_fmt">Sms de positionnement de %s</string>
     
     <!--  Preferences  -->
     <!-- General -->
@@ -20,7 +20,7 @@
     <string name="pref_gal_cat_title">Préférences générales</string>
     
     <string name="pref_gal_act_key">chkbx activate</string>
-    <string name="pref_gal_act_sum">Activer la demande de localisation par SMS</string>
+    <string name="pref_gal_act_sum">Activer la demande de localisation par sms</string>
     <string name="pref_gal_act_title">Activer la localisation</string>
     
     <!-- Lost at home prefs -->
@@ -29,8 +29,8 @@
     
     <string name="pref_home_key_pwd">ring pwd</string>
     <string name="pref_home_title_pwd">Mot de passe de sonnerie</string>
-    <string name="pref_home_sum_pwd">Si ce texte est trouvé dans un SMS, il va déclencher une alarme
-        au volume maximum</string>
+    <string name="pref_home_sum_pwd">Si ce texte est trouvé dans un sms, il va déclencher une alarme
+        avec volume réglé au maximum</string>
     
     <string name="pref_home_key_time">ring time</string>
     <string name="pref_home_title_time">Temps de sonnerie</string>
@@ -42,12 +42,12 @@
         photo en plus de la sonnerie</string>
 
     <!-- Lost outdoor -->
-    <string name="pref_out_cat_sum">Paramétrage de la demande de Position</string>
+    <string name="pref_out_cat_sum">Paramétrage de la demande de position</string>
     <string name="pref_out_cat_title">Paramètre position</string>
     
     <string name="pref_out_key_passwd">localisation password</string>
-    <string name="pref_out_title_passwd">Mot de passe de Localisation</string>
-    <string name="pref_out_sum_passwd">Si ce texte est trouvé dans un SMS, il va déclencher l\'envoi
+    <string name="pref_out_title_passwd">Mot de passe de localisation</string>
+    <string name="pref_out_sum_passwd">Si ce texte est trouvé dans un sms, il va déclencher l\'envoi
         à l\'émetteur du SMS de messages contenant la position du téléphone</string>
     
     <!-- Priority call -->
