@@ -21,7 +21,7 @@
     
     <string name="pref_gal_act_key">chkbx activate</string>
     <string name="pref_gal_act_sum">Check to activate the location by SMS</string>
-    <string name="pref_gal_act_title">Activate localisation</string>
+    <string name="pref_gal_act_title">Respond to location SMS</string>
     
     <!-- Lost at home prefs -->
     <string name="pref_home_cat_sum"> </string>
@@ -54,7 +54,7 @@
     <string name="pref_prio_cat_title">Priority call</string>
 
     <string name="pref_prio_key_specific_caller">pref_specific_caller</string>
-    <string name="pref_prio_sum_specific_caller">Ifcalled from this number, the 
+    <string name="pref_prio_sum_specific_caller">If called by this number, the 
         ringtone volume will be set to its maximum</string>
     <string name="pref_prio_title_specific_caller">Priority call number</string>    
 
