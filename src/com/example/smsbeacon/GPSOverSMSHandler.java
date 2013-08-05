@@ -70,7 +70,8 @@ public class GPSOverSMSHandler implements LocationListener {
 		
 		for(String provider:lProviders) {
 			Log.i(TAG, "Available Provider : " + provider);
-			if(provider != LocationManager.PASSIVE_PROVIDER) {
+			// The passive provider is useless for us
+			if(!provider.equals(LocationManager.PASSIVE_PROVIDER)) {
 				mLocationManager.requestSingleUpdate(provider, this, Looper.getMainLooper());
 				mGPSInfo.mNumRemainingProviders += 1;
 			}
@@ -121,6 +122,8 @@ public class GPSOverSMSHandler implements LocationListener {
 		
 		if(mGPSInfo.mNumRemainingProviders <= 0) {
 			Log.i(TAG, "Last location received");
+			sendLocationSMS(mGPSInfo.mBestLocation,  mCallerNumber, false);
+			mGPSInfo.mIsLocationSMSSent = true;
 			stop();
 		}
 	}
