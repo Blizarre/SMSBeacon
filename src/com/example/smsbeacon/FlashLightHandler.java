@@ -36,10 +36,9 @@ public class FlashLightHandler {
 					Thread.sleep(mOnDurationMs);
 					FlashLightHandler.this.stop();
 				} catch (InterruptedException e) {
-					// Someone asked nicely to stop this thread. t.interrupt()
-					// will set the flag for isInterrupted()
+					// Someone asked nicely to stop this thread. Exit nicely
 					FlashLightHandler.this.stop();
-					t.interrupt();
+					break;
 				}
 			}
 		}

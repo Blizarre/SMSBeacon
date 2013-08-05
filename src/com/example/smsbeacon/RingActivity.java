@@ -40,11 +40,22 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 	}
 	
 	@Override
+	protected void onNewIntent(Intent newIntent) {
+		initNewAction(newIntent);
+	}
+
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_ring);
 
-		Intent origin = getIntent();
+		initNewAction(getIntent());
+
+	}
+
+	protected void initNewAction(Intent origin) {
+
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		mIsLocAllowed = prefs.getBoolean(getString(R.string.pref_gal_act_key), false);
@@ -57,19 +68,26 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 		Log.i(TAG, "RingActivity Created, action: " + action.name());
 		
 		if(action == Action.RINGTONE) {
-			mRingTone = new RingToneHandler(this);
+			if(mIsRingToneAction) 
+				mRingTone.stopRingTone();
+			else
+				mRingTone = new RingToneHandler(this);
+			
 			mIsRingToneAction = true;
 
 			int ringTime = Integer.parseInt(prefs.getString(getString(R.string.pref_home_key_time), "default choice"));
 			mRingTone.startRingTone(ringTime * 1000, shallUseFlash());
 			
 		} else if(action == Action.SMS_LOCATION && mIsLocAllowed) {
-			mGPS = new GPSOverSMSHandler(this);
+			if(mIsGPSAction)
+				mGPS.stop();
+			else
+				mGPS = new GPSOverSMSHandler(this);
+
 			mGPS.sendLocationSMS(mGPS.getLastLocation(), mCaller, true);
 			mGPS.startASyncLocService(mCaller);
 			mIsGPSAction = true;
 		}
-
 	}
 
 

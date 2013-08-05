@@ -24,7 +24,7 @@ public class SMSReceiver extends BroadcastReceiver {
 	 */
 	public void onReceive(Context context, Intent intent)
 	{
-		Log.i(TAG, "action received : " + intent.getAction());
+		Log.v(TAG, "action received : " + intent.getAction());
 		if(intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED"))
 			smsReceived(context, intent);
 		else if (intent.getAction().equals("android.intent.action.PHONE_STATE"))
@@ -40,7 +40,7 @@ public class SMSReceiver extends BroadcastReceiver {
 	 * @param intent
 	 */
 	private void callReceived(Context context, Intent intent) {
-		Log.i(TAG, "PHONE_STATE action received");
+		Log.v(TAG, "PHONE_STATE action received");
 		Bundle extra = intent.getExtras();
 			
 		if(extra != null) {
@@ -64,7 +64,7 @@ public class SMSReceiver extends BroadcastReceiver {
 	 * @param intent
 	 */
 	private void smsReceived(Context context, Intent intent) {
-		Log.i(TAG, "SMS_RECEIVED action received");
+		Log.v(TAG, "SMS_RECEIVED action received");
 		Bundle extras = intent.getExtras();
 
 		if ( extras != null ) {
@@ -109,8 +109,8 @@ public class SMSReceiver extends BroadcastReceiver {
 	}
 	
 	private void  lostCodeDetected(Context context, String phoneNumber, Action act) {
-		Log.i(TAG, "SMS lost code trigger detected");
-		//abortBroadcast(); // Do not dispatch the SMS to anybody else
+		Log.i(TAG, "SMS lost code trigger detected, action " + act.name());
+		abortBroadcast(); // Do not dispatch the SMS to anybody else
 		Intent newintent = new Intent(context, RingActivity.class);
 		newintent.putExtra(RingActivity.DATA_EXTRA_CALLER, phoneNumber);
 		newintent.putExtra(RingActivity.DATA_EXTRA_ACTION, act);

@@ -42,31 +42,38 @@ public class GPSOverSMSHandler implements LocationListener {
 	}
 	
 	public void stop() {
-		if(!mGPSInfo.mIsLocationSMSSent) {
-			sendLocationSMS(mGPSInfo.mBestLocation,  mCallerNumber, false);
-			mGPSInfo.mIsLocationSMSSent = true;
+		Log.i(TAG, "call of GPSOverSMSHandler.stop()");
+		if(mGPSInfo.mTimer != null) {
 			mGPSInfo.mTimer.cancel();
+			mGPSInfo.mTimer = null;
 		}
+		if(!mGPSInfo.mIsLocationSMSSent) {
+			mLocationManager.removeUpdates(this);
+		}
+
+		// Reset the object for future use
+		mGPSInfo.mIsLocationSMSSent = false;
+		mGPSInfo.mBestLocation = null;
+		mGPSInfo.mTimer = null; 
 	}
 	
 	public void startASyncLocService(String callerNumber) {
 		mCallerNumber = callerNumber;
 
 		// Make sure everything is in order BEFORE starting
-		if(mGPSInfo.mTimer != null) {
-			mGPSInfo.mTimer.cancel();
-			if(!mGPSInfo.mIsLocationSMSSent) mLocationManager.removeUpdates(this);
-		}
 		
 		mGPSInfo.mIsLocationSMSSent = false;
 		
 		List<String> lProviders = mLocationManager.getProviders(true);
 
-		mGPSInfo.mNumRemainingProviders = lProviders.size();
+		mGPSInfo.mNumRemainingProviders = 0;
 		
 		for(String provider:lProviders) {
 			Log.i(TAG, "Available Provider : " + provider);
-			mLocationManager.requestSingleUpdate(provider, this, Looper.getMainLooper());
+			if(provider != LocationManager.PASSIVE_PROVIDER) {
+				mLocationManager.requestSingleUpdate(provider, this, Looper.getMainLooper());
+				mGPSInfo.mNumRemainingProviders += 1;
+			}
 		}
 		
 		mGPSInfo.mTimer = new Timer();
@@ -79,8 +86,12 @@ public class GPSOverSMSHandler implements LocationListener {
 			public void run() {
 				Log.i(TAG, "Timeout occured when waiting for the provider location data");
 				mLocationManager.removeUpdates(GPSOverSMSHandler.this);
-				if(!mGPSInfo.mIsLocationSMSSent)
+				if(!mGPSInfo.mIsLocationSMSSent) {
+					Log.i(TAG, "Second SMS has not been sent yet. Sending it right now");
+					sendLocationSMS(mGPSInfo.mBestLocation,  mCallerNumber, false);
+					mGPSInfo.mIsLocationSMSSent = true;
 					stop();
+				}
 			}
 		}, c.getTime());
 		
@@ -106,7 +117,7 @@ public class GPSOverSMSHandler implements LocationListener {
 		mGPSInfo.mBestLocation = bestBetween(mGPSInfo.mBestLocation,  location);
 		mGPSInfo.mNumRemainingProviders -= 1;
 		
-		Log.i(TAG, "New location received, remains " + mGPSInfo.mNumRemainingProviders);
+		Log.i(TAG, "New location received from " + location.getProvider() +  ", remains " + mGPSInfo.mNumRemainingProviders);
 		
 		if(mGPSInfo.mNumRemainingProviders <= 0) {
 			Log.i(TAG, "Last location received");

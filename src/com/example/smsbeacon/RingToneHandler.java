@@ -30,7 +30,7 @@ public class RingToneHandler {
 		
 		@Override
 		public void run() {
-			// RingToneHandler is a /copy/ of the parent class. We need to 
+			// RingToneHandler.this is a /copy/ of the parent class. We need to 
 			// make all the work in this function
 			RingToneHandler.this.startRingTone();
 			try {
@@ -39,7 +39,7 @@ public class RingToneHandler {
 				// stopRingTone() expect the thread to be in interrupted state
 				Thread.currentThread().interrupt();  
 			}
-			RingToneHandler.this.stopRingTone();
+			stopRingTone();
 		}
 		
 	}
@@ -105,11 +105,13 @@ public class RingToneHandler {
 	* No effect if it is not.
 	* */
 	public void stopRingTone() {
-		if(mAutoStop != null && !mAutoStop.isInterrupted())
-			// mAutoStop will take care of everything. Including calling this
+		if(mAutoStop != null && !mAutoStop.isAlive()) {
+			// mAutoStop is null in the RingToneRunnable thread
 			// same method from the copy of this instance. 
 			mAutoStop.interrupt();
-		else {
+			mAutoStop = null;
+			mFlashH = null;
+		} else {
 			mRingTone.stop();
 			setVolume(mInitVolume);
 			if(mFlashH != null)
