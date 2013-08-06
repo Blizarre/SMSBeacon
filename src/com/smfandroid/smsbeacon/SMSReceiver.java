@@ -1,4 +1,4 @@
-package com.example.smsbeacon;
+package com.smfandroid.smsbeacon;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,7 +10,8 @@ import android.telephony.SmsMessage;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.example.smsbeacon.RingActivity.Action;
+import com.example.smsbeacon.R;
+import com.smfandroid.smsbeacon.RingActivity.Action;
 
 public class SMSReceiver extends BroadcastReceiver {
 

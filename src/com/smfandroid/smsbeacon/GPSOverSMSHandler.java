@@ -1,4 +1,4 @@
-package com.example.smsbeacon;
+package com.smfandroid.smsbeacon;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import com.example.smsbeacon.R;
 
 import android.content.Context;
 import android.location.Location;

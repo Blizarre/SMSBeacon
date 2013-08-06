@@ -23,7 +23,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".SMSBeaconPreferenceActivity"
+            android:name="com.smfandroid.smsbeacon.SMSBeaconPreferenceActivity"
             android:label="@android:style/Theme.Black.NoTitleBar" >
 			<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,13 +32,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RingActivity"
+            android:name="com.smfandroid.smsbeacon.RingActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop" >
             
         </activity>
-		<activity android:name=".SetPreferences" />
-        <receiver android:name=".SMSReceiver" >
+		<activity android:name="com.smfandroid.smsbeacon.SetPreferences" />
+        <receiver android:name="com.smfandroid.smsbeacon.SMSReceiver" >
             <intent-filter android:priority="1000" >
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
                 <action android:name="android.intent.action.PHONE_STATE" />

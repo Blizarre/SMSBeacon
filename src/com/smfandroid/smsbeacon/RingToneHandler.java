@@ -1,4 +1,4 @@
-package com.example.smsbeacon;
+package com.smfandroid.smsbeacon;
 
 import android.content.Context;
 import android.media.AudioManager;

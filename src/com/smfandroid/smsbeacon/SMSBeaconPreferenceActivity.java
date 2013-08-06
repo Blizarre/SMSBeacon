@@ -1,4 +1,6 @@
-package com.example.smsbeacon;
+package com.smfandroid.smsbeacon;
+
+import com.example.smsbeacon.R;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
