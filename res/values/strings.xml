@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="sms_lastloc_header">Last known location (may be old) : </string>
-    <string name="sms_newloc_header">Current location : </string>
+    <string name="sms_lastloc_header">Last known location (may be old): </string>
+    <string name="sms_newloc_header">Current location: </string>
     <string name="sms_noloc">No known location</string>
     <string name="sms_loc_fmt">%1$.3f E %2$.3f N\naltitude %3$.0f m., accuracy %4$.0f m.\ntime : %5$s</string>
     
@@ -28,7 +28,7 @@
     <string name="pref_home_cat_title">Ringtone preferences</string>
     
     <string name="pref_home_key_pwd">ring pwd</string>
-    <string name="pref_home_title_pwd">Ring pwd </string>
+    <string name="pref_home_title_pwd">RingTone Password </string>
     <string name="pref_home_sum_pwd">If this text is found in a SMS, 
         it will trigger the loud alarm</string>
     
@@ -45,7 +45,7 @@
     <string name="pref_out_cat_title">location</string>
     
     <string name="pref_out_key_passwd">location password</string>
-    <string name="pref_out_title_passwd">location password</string>
+    <string name="pref_out_title_passwd">Location password</string>
     <string name="pref_out_sum_passwd">If this text is found in a SMS, 
         it will send the coordinates of the phone back by SMS</string>
     
