@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class SMSBeaconPreferenceActivity extends PreferenceActivity {
 	RingtoneManager mRingtoneManager;
@@ -23,5 +25,28 @@ public class SMSBeaconPreferenceActivity extends PreferenceActivity {
 			mcursor = mRingtoneManager.getCursor();
 			title = RingtoneManager.EXTRA_RINGTONE_TITLE;
 		}
+	}
+	
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.config, menu);
+       	return true;
+    }
+
+	/**
+	 *  Android 4.0.3 doesn't like AT ALL custom themes and onClick.
+	 *  That's why I have to use onOptionsItemSelected
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem mi) {
+		switch (mi.getItemId()) {
+			case R.id.action_about:
+				AboutDialog hd = new AboutDialog();
+				hd.show(getFragmentManager(), "NoticeDialogFragment");
+
+			default:
+				return false;
+		}
+		
 	}
 }

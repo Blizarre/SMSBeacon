@@ -6,8 +6,10 @@
     <string name="sms_noloc">Inconnue</string>
     <string name="sms_loc_fmt">%1$.3f E %2$.3f N\nAltitude %3$.0f m., Précision %4$.0f m.\nHeure : %5$s</string>
     
-    <string name="app_name">SMSBeacon</string>
-    <string name="action_settings">Paramètres</string>
+    <string name="app_name">Lost\'n Phoned</string>
+    <string name="action_about">À propos</string>
+    <string name="button_continue">Continuer</string>
+    <string name="msg_about">Vide pour l\'instant</string>
     
     <string name="ring_seek_max">100</string>
     
