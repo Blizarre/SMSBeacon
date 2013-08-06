@@ -75,7 +75,7 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 			
 			mIsRingToneAction = true;
 
-			int ringTime = Integer.parseInt(prefs.getString(getString(R.string.pref_home_key_time), "default choice"));
+			int ringTime = Integer.parseInt(prefs.getString(getString(R.string.pref_home_key_time), "30"));
 			mRingTone.startRingTone(ringTime * 1000, shallUseFlash());
 			
 		} else if(action == Action.SMS_LOCATION && mIsLocAllowed) {
