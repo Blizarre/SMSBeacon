@@ -13,6 +13,7 @@
         <p>Ce logiciel est le résultat de la collaboration de <i>S. Marache-Fr.</i> et <i>C. Daviller</i></p>
     	<p>Le design est de <i>C. Daviller</i> à partir d\'images de STEVENDESIGNS.</p>
     ]]></string>     
+
     <string name="ring_seek_max">100</string>
     
     <string name="msg_ringtone_num_fmt">SMS de sonnerie de %s</string>

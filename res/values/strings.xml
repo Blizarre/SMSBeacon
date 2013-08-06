@@ -13,6 +13,7 @@
         <p>This software is the result of a collaboration between <i>S. Marache-Fr.</i> and <i>C. Daviller</i></p>
     	<p>Graphics from <i>C. Daviller</i> using images from STEVENDESIGNS.</p>
    	]]></string>
+
     
     <string name="ring_seek_max">100</string>
     
@@ -69,7 +70,6 @@
     <!-- Images -->
     <string name="img_title_conten_desc">title</string>
     <string name="lbl_slide_to_stop">Slide to stop</string>
-    
 </resources>
 
 
