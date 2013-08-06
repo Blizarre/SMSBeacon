@@ -9,7 +9,10 @@
     <string name="app_name">Lost\'n Phoned</string>
     <string name="action_about">About</string>
     <string name="button_continue">Continue</string>
-    <string name="msg_about">Empty for now</string>
+    <string name="msg_about"><![CDATA[
+        <p>This software is the result of a collaboration between <i>S. Marache-Fr.</i> and <i>C. Daviller</i></p>
+    	<p>Graphics from <i>C. Daviller</i> using images from STEVENDESIGNS.</p>
+   	]]></string>
     
     <string name="ring_seek_max">100</string>
     
