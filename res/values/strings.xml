@@ -6,7 +6,7 @@
     <string name="sms_noloc">No known location</string>
     <string name="sms_loc_fmt">%1$.3f E %2$.3f N\naltitude %3$.0f m., accuracy %4$.0f m.\ntime : %5$s</string>
     
-    <string name="app_name">SMSBeacon</string>
+    <string name="app_name">Lost\'n Phoned</string>
     <string name="action_settings">Settings</string>
     
     <string name="ring_seek_max">100</string>
@@ -64,7 +64,6 @@
     <!-- Images -->
     <string name="img_title_conten_desc">title</string>
     <string name="lbl_slide_to_stop">Slide to stop</string>
-    
 </resources>
 
 
