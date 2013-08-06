@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.smsbeacon.R;
-
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;

@@ -1,7 +1,5 @@
 package com.smfandroid.smsbeacon;
 
-import com.example.smsbeacon.R;
-
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.database.Cursor;

@@ -1,7 +1,5 @@
 package com.smfandroid.smsbeacon;
 
-import com.example.smsbeacon.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;

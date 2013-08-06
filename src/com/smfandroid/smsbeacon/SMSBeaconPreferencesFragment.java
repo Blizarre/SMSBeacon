@@ -1,7 +1,5 @@
 package com.smfandroid.smsbeacon;
 
-import com.example.smsbeacon.R;
-
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
