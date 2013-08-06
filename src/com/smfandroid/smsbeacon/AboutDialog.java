@@ -16,8 +16,7 @@ public class AboutDialog extends DialogFragment {
 	    Builder builder = new Builder(getActivity());
 	    builder.setMessage(Html.fromHtml(getString(R.string.msg_about)));
 	    builder.setNeutralButton(R.string.button_continue, null);
-/*	    builder.setPositiveButton(R.string.edit_button_remove_all, this);
-	    builder.setNegativeButton(R.string.edit_button_cancel, this); */
+
 	    return builder.create();
 	}
 }
