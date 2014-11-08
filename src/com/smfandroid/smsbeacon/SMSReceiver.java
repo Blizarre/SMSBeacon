@@ -110,7 +110,6 @@ public class SMSReceiver extends BroadcastReceiver {
 	
 	private void  lostCodeDetected(Context context, String phoneNumber, Action act) {
 		Log.i(TAG, "SMS lost code trigger detected, action " + act.name());
-		abortBroadcast(); // Do not dispatch the SMS to anybody else
 		Intent newintent = new Intent(context, RingActivity.class);
 		newintent.putExtra(RingActivity.DATA_EXTRA_CALLER, phoneNumber);
 		newintent.putExtra(RingActivity.DATA_EXTRA_ACTION, act);

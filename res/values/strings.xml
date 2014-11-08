@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="loc_not_found_title">Location provider disabled</string>
+    <string name="loc_not_found_message">This application cannot have access to your current location. Do you want to change the location settings ? </string>
+    
+    
+    
     <string name="sms_lastloc_header">Last known location (may be old): </string>
     <string name="sms_newloc_header">Current location: </string>
     <string name="sms_noloc">No known location</string>

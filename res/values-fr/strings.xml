@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="no">Non</string>
+    <string name="yes">Oui</string>
+    <string name="loc_not_found_title">Partage de position désactivé</string>
+    <string name="loc_not_found_message">Cette application ne peut pas avoir accès à votre position à cause des réglages de vos paramètres Android. Voulez-vous les modifier ?</string>
+    
     
     <string name="sms_lastloc_header">Dernière position connue (peut être ancienne) : </string>
     <string name="sms_newloc_header">Position actuelle : </string>

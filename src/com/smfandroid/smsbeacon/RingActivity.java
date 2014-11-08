@@ -44,10 +44,27 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 		initNewAction(newIntent);
 	}
 
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		
+		Log.i(TAG, "Pause Activity.");
+
+		// The camera needs to be released
+		if(mIsRingToneAction)
+			stopRingToneActions();
+		
+		if(mIsGPSAction)
+			stopGPSAction();
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		Log.i(TAG, "Create Activity.");
+
 		setContentView(R.layout.activity_ring);
 
 		initNewAction(getIntent());
@@ -69,9 +86,12 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 		
 		if(action == Action.RINGTONE) {
 			if(mIsRingToneAction) 
+			{
 				mRingTone.stopRingTone();
-			else
-				mRingTone = new RingToneHandler(this);
+				mRingTone = null;
+			}
+
+			mRingTone = new RingToneHandler(this);
 			
 			mIsRingToneAction = true;
 
@@ -80,9 +100,12 @@ public class RingActivity extends Activity implements OnSeekBarChangeListener {
 			
 		} else if(action == Action.SMS_LOCATION && mIsLocAllowed) {
 			if(mIsGPSAction)
+			{
 				mGPS.stop();
-			else
-				mGPS = new GPSOverSMSHandler(this);
+				mGPS = null;
+			}
+			
+			mGPS = new GPSOverSMSHandler(this);
 
 			mGPS.sendLocationSMS(mGPS.getLastLocation(), mCaller, true);
 			mGPS.startASyncLocService(mCaller);

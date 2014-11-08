@@ -36,10 +36,9 @@ public class RingToneHandler {
 			try {
 				Thread.sleep(mMaxDuration);
 			} catch (InterruptedException e) {
-				// stopRingTone() expect the thread to be in interrupted state
-				Thread.currentThread().interrupt();  
+				// Nothing to do, just a premature exit
 			}
-			stopRingTone();
+			stopRingToneFromThread();
 		}
 		
 	}
@@ -97,7 +96,16 @@ public class RingToneHandler {
 			throw new IllegalStateException("Ringtone already playing");
 		mInitVolume = SetMaxVolume();
 		mRingTone.play();
-		mFlashH.startFlicker();
+		if(mFlashH != null)
+			mFlashH.startFlicker();
+	}
+	
+	
+	public void stopRingToneFromThread() {
+		mRingTone.stop();
+		setVolume(mInitVolume);
+		if(mFlashH != null)
+			mFlashH.stopFlicker();
 	}
 	
 	/**
@@ -105,17 +113,10 @@ public class RingToneHandler {
 	* No effect if it is not.
 	* */
 	public void stopRingTone() {
-		if(mAutoStop != null && !mAutoStop.isAlive()) {
+		if(mAutoStop != null && mAutoStop.isAlive()) {
 			// mAutoStop is null in the RingToneRunnable thread
 			// same method from the copy of this instance. 
 			mAutoStop.interrupt();
-			mAutoStop = null;
-			mFlashH = null;
-		} else {
-			mRingTone.stop();
-			setVolume(mInitVolume);
-			if(mFlashH != null)
-				mFlashH.stopFlicker();
 		}
 	}	
 }

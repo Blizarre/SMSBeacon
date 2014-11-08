@@ -47,9 +47,8 @@ public class GPSOverSMSHandler implements LocationListener {
 			mGPSInfo.mTimer.cancel();
 			mGPSInfo.mTimer = null;
 		}
-		if(!mGPSInfo.mIsLocationSMSSent) {
-			mLocationManager.removeUpdates(this);
-		}
+
+		mLocationManager.removeUpdates(this);
 
 		// Reset the object for future use
 		mGPSInfo.mIsLocationSMSSent = false;
