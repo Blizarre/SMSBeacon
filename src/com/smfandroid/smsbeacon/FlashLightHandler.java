@@ -48,7 +48,9 @@ public class FlashLightHandler {
 		@Override
 		public void run() {
 			try {
+				//
 				// TODO: Make a real state machine, will be more robust
+				// 
 				FlashLightHandler.this.start();
 
 				while(mState != State.ERROR) {
@@ -138,9 +140,16 @@ public class FlashLightHandler {
 	 * Release the camera object
 	 */
 	public void stop() {
-		Log.i(TAG, "Stopped the Flashlight.");
+		Log.i(TAG, "Stopping the Flashlight.");
 
-		mCamera.release();
+		if(mCamera != null)
+		{
+			Log.i(TAG, "Releasing Camera");
+			mCamera.release();
+		}
+		
+		mCamera = null;
+		
 		mState = State.STOPPED;
 	}
 	
