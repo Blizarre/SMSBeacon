@@ -21,7 +21,8 @@ public class FlashLightHandler {
 	protected enum State {
 		STOPPED,
 		STARTED_LAMP_ON,
-		STARTED_LAMP_OFF
+		STARTED_LAMP_OFF,
+		ERROR
 	};
 	
 	protected State mState = State.STOPPED;
@@ -47,9 +48,10 @@ public class FlashLightHandler {
 		@Override
 		public void run() {
 			try {
+				// TODO: Make a real state machine, will be more robust
 				FlashLightHandler.this.start();
-				
-				while(true) {
+
+				while(mState != State.ERROR) {
 						Thread.sleep(mOffDurationMs);
 						FlashLightHandler.this.lightOn();
 						Thread.sleep(mOnDurationMs);
@@ -78,13 +80,27 @@ public class FlashLightHandler {
 		if(mState != State.STOPPED) 
 			throw new IllegalStateException("FlashLightHandler is already started");
 		
-		mCamera = Camera.open();     
+		// Reset the camera
+		mCamera = null;
+		
+		try
+		{
+			mCamera = Camera.open();
+		}
+		catch(Exception e)
+		{
+			Log.w(TAG, "Exception raised when trying to open the camera");
+		}
+		
 		if(mCamera == null)
 		{
 			Log.w(TAG, "Couldn't get the handle to the camera.");
-			return; // Will try to get the camera next time
+			mState = State.ERROR;
 		}
-		mState = State.STARTED_LAMP_OFF;
+		else
+		{
+			mState = State.STARTED_LAMP_OFF;
+		}
 	}
 
 	/**
